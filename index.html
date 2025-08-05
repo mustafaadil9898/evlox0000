@@ -1,147 +1,100 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Evalux Funding</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="style.css" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
 </head>
-<body id="vanta-bg">
+<body>
   <header>
-    <div class="header-left"><div class="logo">Evalux</div></div>
-    <div class="header-center">
-      <nav>
-        <a href="#funding">الحسابات</a>
-        <a href="#rules">القوانين</a>
-        <a href="#evaluation">التقييم</a>
-        <a href="#overview">ملخص القواعد</a>
-        <a href="#faq">الأسئلة الشائعة</a>
-        <a href="admin.html">Admin</a>
-</nav>
-    </div>
-    <div class="header-right"><a href="dashboard.html" class="btn-dashboard">Dashboard</a></div>
+    <div class="logo">E Evalux</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="#features">Features</a>
+      <a href="#pricing">Pricing</a>
+      <a href="login.html">Login</a>
+      <a href="register.html">Create Account</a>
+      <a href="admin.html">Admin</a>
+    </nav>
   </header>
 
   <section class="hero">
-    <div class="hero-content">
-      <h1>أثبت احترافيتك... من اليوم مع Evalux!</h1>
-      <p>تمويل مكتفٍ ومحمي لرأس مالك الحقيقي.</p>
-      <a href="#funding" class="btn">Get Funded Now</a>
+    <h1>Start Your Challenge with Evalux Funding</h1>
+    <p>Join us and test your skills with custom funded accounts for sustainable profits.</p>
+    <a href="login.html" class="btn-primary">Get Started</a>
+  </section>
+
+  <section id="steps">
+    <h2 style="text-align:center; margin-top: 2rem;">Choose Your Challenge</h2>
+    <div style="text-align:center;">
+      <button class="step-btn active" data-target="step1">Step One</button>
+      <button class="step-btn" data-target="step2">Two Step</button>
     </div>
   </section>
 
-  <section id="funding" class="challenge-section">
-    <h2>اختر تحديك</h2>
-    <p>حدد حجم الحساب ونوع الاختبار المناسب لك</p>
-    <div class="challenge-tabs">
-      <button data-type="one">خطوة واحدة</button>
-      <button data-type="two">خطوتين</button>
+  <section id="account-details">
+    <div id="step1" class="card active">
+      <h3>One-Step Challenge</h3>
+      <ul>
+        <li>Price: $100</li>
+        <li>Duration: 30 days</li>
+        <li>Profit Target: 8%</li>
+        <li>Max Drawdown: 5%</li>
+        <li>Trading Days: 15</li>
+        <li>Profit Split: 80/20</li>
+      </ul>
     </div>
-    <div class="size-tabs">
-      <button data-size="5000">$5,000</button>
-      <button data-size="10000">$10,000</button>
-      <button data-size="25000">$25,000</button>
-      <button data-size="50000">$50,000</button>
-      <button data-size="100000">$100,000</button>
-      <button data-size="200000">$200,000</button>
-    </div>
-    <div class="rules-container">
-      <div class="rules-panel" id="rules-one">
-        <h3>قوانين خطوة واحدة</h3>
-        <ul>
-          <li>التراجع اليومي: 5%</li>
-          <li>التراجع الكلي: 10%</li>
-          <li>الهدف: 10%</li>
-        </ul>
-      </div>
-      <div class="rules-panel" id="rules-two">
-        <div style="margin-bottom:20px;">
-          <h3>المرحلة الأولى</h3>
-          <ul>
-            <li>التراجع اليومي: 5%</li>
-            <li>التراجع الكلي: 10%</li>
-            <li>هدف: 5%</li>
-          </ul>
-        </div>
-        <div>
-          <h3>المرحلة الثانية</h3>
-          <ul>
-            <li>التراجع اليومي: 5%</li>
-            <li>التراجع الكلي: 10%</li>
-            <li>هدف: 8%</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="price-container">
-      <button id="price-btn">$0</button>
+    <div id="step2" class="card">
+      <h3>Two-Step Challenge</h3>
+      <ul>
+        <li>Price: $150</li>
+        <li>Duration: 45 days</li>
+        <li>Profit Target: 10%</li>
+        <li>Max Drawdown: 5%</li>
+        <li>Trading Days: 20</li>
+        <li>Profit Split: 85/15</li>
+      </ul>
     </div>
   </section>
 
-  <section id="rules" class="overview-section">
-    <h2>ملخص القواعد</h2>
-    <p class="overview-subtitle">تم تصميم تحدي التداول الخاص بنا لتحديد المتداولين المنضبطين</p>
-    <div class="rule-cards">
-      <div class="rule-card">
-        <h3>قواعد التحدي</h3>
-        <ul>
-          <li>اختر خطوة واحدة أو خطوتين</li>
-          <li>خطوة واحدة: هدف 10% • تراجع يومي 5% • تراجع كلي 10%</li>
-          <li>خطوتين: مرحلة1:5% • مرحلة2:8% • تراجع يومي 5% • تراجع كلي 10%</li>
-        </ul>
-      </div>
-      <div class="rule-card">
-        <h3>قواعد التداول</h3>
-        <ul>
-          <li>التراجع اليومي ≤5%</li>
-          <li>التراجع الكلي ≤10%</li>
-          <li>ممنوع التداول قبل/بعد الأخبار</li>
-        </ul>
-      </div>
-      <div class="rule-card">
-        <h3>هيكل الدفع</h3>
-        <ul>
-          <li>80% للمتداول • 20% للشركة</li>
-          <li>مدفوعات كل أسبوعين</li>
-          <li>سحب خلال 5 أيام عمل</li>
-        </ul>
-      </div>
+  <section id="features">
+    <h2 style="text-align:center;">Why Choose Us?</h2>
+    <div class="flex-cards">
+      <div class="card"><h3>Flexible Plans</h3><p>Pick an account that matches your level and experience.</p></div>
+      <div class="card"><h3>24/7 Support</h3><p>Our team is ready to help you anytime.</p></div>
+      <div class="card"><h3>Fast Withdrawals</h3><p>Enjoy withdrawing your profits without delay.</p></div>
     </div>
   </section>
 
-  <section id="faq" class="faq-section">
-    <h2>الأسئلة الشائعة</h2>
-    <p class="faq-subtitle">كل ما تحتاج إلى معرفته حول برنامج التمويل</p>
-    <div class="accordion">
-      <div class="accordion-item">
-        <div class="accordion-header"><h3>ما هي خيارات التحدي المتاحة؟</h3><span class="icon">⌄</span></div>
-        <div class="accordion-content"><p>تحدي خطوة واحدة بهدف 10% أو تحدي خطوتين بهدف المرحلتين 5% و8% مع قواعد إدارة المخاطر.</p></div>
-      </div>
-      <div class="accordion-item">
-        <div class="accordion-header"><h3>ما هي قواعد التداول؟</h3><span class="icon">⌄</span></div>
-        <div class="accordion-content"><p>التراجع اليومي ≤5%، التراجع الكلي ≤10%, ممنوع التداول قبل وبعد الأخبار، ويجب إغلاق الصفقات قبل عطلة نهاية الأسبوع.</p></div>
-      </div>
-      <div class="accordion-item">
-        <div class="accordion-header"><h3>كيف يتم الدفع؟</h3><span class="icon">⌄</span></div>
-        <div class="accordion-content"><p>80% من الأرباح للمتداول، 20% للشركة، والدفع كل أسبوعين، يتم السحب خلال 5 أيام عمل.</p></div>
-      </div>
-      <div class="accordion-item">
-        <div class="accordion-header"><h3>هل يُسمح بتداول الأخبار؟</h3><span class="icon">⌄</span></div>
-        <div class="accordion-content"><p>لا، التداول خلال الأخبار عالية التأثير ممنوع قبل دقيقتين وبعد دقيقتين من صدورها.</p></div>
-      </div>
+  <section id="pricing">
+    <h2 style="text-align:center;">Plans & Pricing</h2>
+    <div class="flex-cards">
+      <div class="card"><h3>Basic</h3><p>$100 – 8% Profit – 5% Max DD</p></div>
+      <div class="card"><h3>Pro</h3><p>$150 – 10% Profit – 5% Max DD</p></div>
+      <div class="card"><h3>Premium</h3><p>$200 – 12% Profit – 5% Max DD</p></div>
     </div>
   </section>
 
-  <div class="social-container">
-    <a href="https://t.me/evaluxfunding">تيليجرام</a>
-    <a href="https://www.instagram.com/evaluxfunding">إنستغرام</a>
-    <a href="mailto:support@evalux.com">البريد الإلكتروني</a>
-  </div>
+  <footer style="background:#111;color:#fff;text-align:center;padding:1rem;">
+    <a href="mailto:evaluxfunding@gmail.com" style="color:#e33;text-decoration:none;font-weight:bold;">
+      ✉️ evaluxfunding@gmail.com
+    </a>
+  </footer>
 
-  <footer style="padding:20px;text-align:center;color:var(--text-light);">© 2025 Evalux Funding</footer>
-
-  <script src="script.js"></script>
+  <script>
+    document.querySelectorAll('.step-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.step-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        document.querySelectorAll('#account-details .card').forEach(d => d.classList.remove('active'));
+        document.getElementById(btn.dataset.target).classList.add('active');
+      });
+    });
+    gsap.from('.hero h1', { y: -50, opacity: 0, duration: 1 });
+    gsap.from('.hero p', { y: 50, opacity: 0, duration: 1, delay: 0.5 });
+    gsap.from('.btn-primary', { scale: 0.8, opacity: 0, duration: 0.8, delay: 1 });
+  </script>
 </body>
 </html>
