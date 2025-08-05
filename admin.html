@@ -1,25 +1,100 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <title>Admin Panel</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>لوحة الأدمن - Evalux Funding</title>
   <link href="style.css" rel="stylesheet">
+  <style>
+    .admin-container { max-width: 800px; margin: 6rem auto; padding: 2rem; background: #111; border-radius: 12px; }
+    h2 { text-align: center; color: #fff; margin-bottom: 1.5rem; }
+    .admin-container label { display: block; margin: 0.5rem 0 0.2rem; color: #aaa; }
+    .admin-container input, .admin-container select, .admin-container button {
+      width: 100%; padding: 0.75rem; margin-bottom: 0.75rem; border: none; border-radius: 6px; font-size: 0.95rem;
+    }
+    .admin-container input, .admin-container select { background: #222; color: #fff; }
+    .admin-container button { background: #e33; color: #fff; cursor: pointer; }
+    .admin-container button:hover { background: #c22; }
+    table { width: 100%; border-collapse: collapse; margin-top: 1.5rem; }
+    table th, table td { border: 1px solid #333; padding: 0.5rem; text-align: center; color: #fff; }
+    table th { background: #222; color: #fff; }
+  </style>
 </head>
-<body id="vanta-bg">
-  <div class="admin-section">
-    <h2>🛠️ الأدمن - مراجعة الطلبات</h2>
-    <table class="admin-table">
+<body>
+  <header class="header-card">
+    <div class="logo">E Evalux Funding</div>
+    <nav>
+      <a href="index.html">الرئيسية</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="credentials.html">Credentials</a>
+      <a href="admin.html">Admin</a>
+    </nav>
+  </header>
+  <div class="admin-container">
+    <h2>🛠️ إدارة بيانات العملاء</h2>
+    <label for="clientEmail">بريد العميل</label>
+    <input type="email" id="clientEmail" placeholder="user@example.com">
+    <label for="clientType">نوع الحساب</label>
+    <select id="clientType">
+      <option value="">-- اختر نوع الحساب --</option>
+      <option value="one">1 خطوة</option>
+      <option value="two">2 خطوة</option>
+    </select>
+    <label for="clientSize">حجم الحساب (مثلاً 100, 150, 200)</label>
+    <input type="number" id="clientSize" placeholder="Enter account size">
+    <label for="clientCreated">تاريخ الإنشاء</label>
+    <input type="date" id="clientCreated">
+    <label for="clientStatus">الحالة</label>
+    <select id="clientStatus">
+      <option value="">-- اختر الحالة --</option>
+      <option value="Passed">Passed</option>
+      <option value="Not Passed">Not Passed</option>
+    </select>
+    <label for="clientProfit">نسبة التقدم %</label>
+    <input type="number" id="clientProfit" placeholder="Enter profit percentage">
+    <label for="clientDailyDd">التراجع اليومي %</label>
+    <input type="number" id="clientDailyDd" placeholder="Enter daily drawdown %">
+    <label for="clientMaxDd">التراجع الكلي %</label>
+    <input type="number" id="clientMaxDd" placeholder="Enter max drawdown %">
+    <button onclick="saveClient()">حفظ البيانات</button>
+    <table id="clientsTable">
       <thead>
-        <tr><th>ID</th><th>المستخدم</th><th>البريد</th><th>خطة</th><th>نوع</th><th>حالة</th></tr>
+        <tr>
+          <th>البريد</th><th>النوع</th><th>الحجم</th><th>Created At</th><th>الحالة</th><th>التقدم %</th><th>تراجع يومي %</th><th>تراجع كلي %</th>
+        </tr>
       </thead>
-      <tbody>
-        <tr><td>1</td><td>محمد علي</td><td>mohamed@example.com</td><td>5K</td><td>خطوة واحدة</td><td>Pending</td></tr>
-      </tbody>
+      <tbody></tbody>
     </table>
   </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
-<script>VANTA.NET({ el: "#vanta-bg", color:0xff3366, backgroundColor:0x0d0d0d });</script>
+  <script>
+    const allowedAdmins = ['mustafa1998','younes2002'];
+    document.getElementById('adminLoginBtn').addEventListener('click', () => {
+      const user = document.getElementById('adminUsername').value.trim();
+      const errorEl = document.getElementById('loginError');
+      if (allowedAdmins.includes(user)) {
+        // Show admin panel
+        document.getElementById('loginContainer').style.display = 'none';
+        document.getElementById('adminContainer').style.display = 'block';
+        loadClients();
+      } else {
+        errorEl.textContent = 'اسم مستخدم غير صحيح';
+      }
+    });
+    function loadClients() {
+      const clients = JSON.parse(localStorage.getItem('clients')||'[]');
+      const tbody = document.querySelector('#clientsTable tbody');
+      tbody.innerHTML = '';
+      clients.forEach(c => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${c.email}</td>
+          <td>${c.type==='one'?'1 خطوة':'2 خطوة'}</td>
+          <td>${c.size}</td><td>${c.dailyDd}%</td><td>${c.maxDd}%</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+    // Remove storage persistence: admin must login fresh each time
+</script>
 </body>
 </html>
