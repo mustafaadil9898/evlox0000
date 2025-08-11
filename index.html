@@ -1,147 +1,130 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Evalux Funding</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Evalux Funding — One/Two‑Step challenges with crypto checkout, receipt upload, and admin approval." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link href="style.css" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
 </head>
-<body id="vanta-bg">
-  <header>
-    <div class="header-left"><div class="logo">Evalux</div></div>
-    <div class="header-center">
-      <nav>
-        <a href="#funding">Accounts</a>
-        <a href="#rules">Rules</a>
-        <a href="#evaluation">Evaluation</a>
-        <a href="#overview">Overview</a>
-        <a href="#faq">FAQ</a>
-        <a href="admin.html">Admin</a>
-      </nav>
-    </div>
-    <div class="header-right"><a href="dashboard.html" class="btn-dashboard">Dashboard</a></div>
-  </header>
-
+<body data-page="index">
   <section class="hero">
-    <div class="hero-content">
-      <h1>Prove Your Professionalism Today with Evalux!</h1>
-      <p>Fully funded and protected for your real capital.</p>
-      <a href="#funding" class="btn">Get Funded Now</a>
-    </div>
-  </section>
-
-  <section id="funding" class="challenge-section">
-    <h2>Choose Your Challenge</h2>
-    <p>Select account size and test structure that fits you</p>
-    <div class="challenge-tabs">
-      <button data-type="one">One Step</button>
-      <button data-type="two">Two Step</button>
-    </div>
-    <div class="size-tabs">
-      <button data-size="5000">$5,000</button>
-      <button data-size="10000">$10,000</button>
-      <button data-size="25000">$25,000</button>
-      <button data-size="50000">$50,000</button>
-      <button data-size="100000">$100,000</button>
-      <button data-size="200000">$200,000</button>
-    </div>
-    <div class="rules-container">
-      <div class="rules-panel" id="rules-one">
-        <h3>One Step Rules</h3>
-        <ul>
-          <li>Daily Drawdown: 5%</li>
-          <li>Max Drawdown: 10%</li>
-          <li>Target: 10%</li>
-        </ul>
-      </div>
-      <div class="rules-panel" id="rules-two">
-        <div style="margin-bottom:20px;">
-          <h3>Phase One</h3>
-          <ul>
-            <li>Daily Drawdown: 5%</li>
-            <li>Max Drawdown: 10%</li>
-            <li>Target: 5%</li>
-          </ul>
-        </div>
-        <div>
-          <h3>Phase Two</h3>
-          <ul>
-            <li>Daily Drawdown: 5%</li>
-            <li>Max Drawdown: 10%</li>
-            <li>Target: 8%</li>
-          </ul>
+    <div class="container hgrid">
+      <div>
+        <h1>Start your funded challenge</h1>
+        <p>Pick a package, pay with crypto, upload a receipt. Everything is routed to the Admin Panel for approval.</p>
+        <div class="stats">
+          <div class="stat"><b>80%</b><div class="hint">Profit share</div></div>
+          <div class="stat"><b>≤72h</b><div class="hint">Payout processing</div></div>
+          <div class="stat"><b>24/7</b><div class="hint">Support</div></div>
         </div>
       </div>
-    </div>
-    <div class="price-container">
-      <button id="price-btn">$0</button>
-    </div>
-  </section>
-
-  <section id="rules" class="overview-section">
-    <h2>Overview Rules</h2>
-    <p class="overview-subtitle">Our trading challenge is designed to identify disciplined traders</p>
-    <div class="rule-cards">
-      <div class="rule-card">
-        <h3>Challenge Rules</h3>
-        <ul>
-          <li>Choose One Step or Two Step</li>
-          <li>One Step: 10% Target • 5% Daily DD • 10% Max DD</li>
-          <li>Two Step: Phase1:5% • Phase2:8% • 5% Daily DD • 10% Max DD</li>
-        </ul>
-      </div>
-      <div class="rule-card">
-        <h3>Trading Rules</h3>
-        <ul>
-          <li>Daily Drawdown ≤5%</li>
-          <li>Max Drawdown ≤10%</li>
-          <li>No trading around major news</li>
-        </ul>
-      </div>
-      <div class="rule-card">
-        <h3>Payment Structure</h3>
-        <ul>
-          <li>80% to Trader • 20% to Company</li>
-          <li>Payouts every two weeks</li>
-          <li>Withdrawals within 5 business days</li>
-        </ul>
+      <div class="panel">
+        <h3 style="margin:0 0 8px">Quick Buy</h3>
+        <div class="row">
+          <label for="qbMode">Mode</label>
+          <select id="qbMode"><option value="one">One‑Step</option><option value="two">Two‑Step</option></select>
+        </div>
+        <div class="row">
+          <label for="qbSize">Account Size</label>
+          <select id="qbSize">
+            <option value="5000">$5,000</option>
+            <option value="10000" selected>$10,000</option>
+            <option value="25000">$25,000</option>
+            <option value="50000">$50,000</option>
+            <option value="100000">$100,000</option>
+            <option value="200000">$200,000</option>
+          </select>
+        </div>
+        <div class="row">
+          <div><b>Total:</b> <span id="qbPrice">$196</span></div>
+        </div>
+        <div class="row right">
+          <a class="btn primary" id="qbCheckout" href="#checkout">Buy with Crypto</a>
+        </div>
+        <p class="hint">You'll confirm coin & chain, then upload your receipt screenshot.</p>
       </div>
     </div>
   </section>
 
-  <section id="faq" class="faq-section">
-    <h2>FAQ</h2>
-    <p class="faq-subtitle">Everything you need to know about our funding program</p>
-    <div class="accordion">
-      <div class="accordion-item">
-        <div class="accordion-header"><h3>What challenge options are available?</h3><span class="icon">⌄</span></div>
-        <div class="accordion-content"><p>One Step challenge with 10% target or Two Step challenge with 5% &amp; 8% targets, all with strict risk rules.</p></div>
+  <main>
+    <section id="packages">
+      <div class="container">
+        <header>
+          <h2>Choose your package</h2>
+          <p class="sub">Transparent pricing. Once approved, account details appear in your Dashboard.</p>
+          <div class="mode" role="group" aria-label="Package type">
+            <button class="is-active" data-mode="one">One‑Step</button>
+            <button data-mode="two">Two‑Step</button>
+          </div>
+        </header>
+        <div class="grid" id="pkgGrid"></div>
       </div>
-      <div class="accordion-item">
-        <div class="accordion-header"><h3>What are the trading rules?</h3><span class="icon">⌄</span></div>
-        <div class="accordion-content"><p>Daily Drawdown ≤5%, Max Drawdown ≤10%, no trading around high-impact news, close positions before weekends.</p></div>
-      </>
-      <div class="accordion-item">
-        <div class="accordion-header"><h3>How are payments made?</h3><span class="icon">⌄</span></div>
-        <div class="accordion-content"><p>80% profit to trader, 20% to company, paid bi-weekly, withdrawals processed within 5 business days.</p></div>
+    </section>
+
+    <section id="rules">
+      <div class="container">
+        <h2>Core Rules</h2>
+        <ul class="sub">
+          <li>One‑Step: Target <b>10%</b> • Daily DD <b>5%</b> • Max DD <b>10%</b></li>
+          <li>Two‑Step: <b>5% + 8%</b> • Daily DD <b>5%</b> • Max DD <b>10%</b></li>
+          <li>No trading 2 min before/after high‑impact news.</li>
+        </ul>
       </div>
-      <div class="accordion-item">
-        <div class="accordion-header"><h3>Is news trading allowed?</h3><span class="icon">⌄</span></div>
-        <div class="accordion-content"><p>No, trading two minutes before and after high-impact news is prohibited.</p></div>
+    </section>
+
+    <section id="checkout">
+      <div class="container">
+        <h2>Crypto Checkout</h2>
+        <p class="sub">Pay with crypto, then upload your receipt. Admin will approve quickly.</p>
+        <div class="checkout">
+          <div class="panel">
+            <div class="row"><label>Selected Package</label><input type="text" id="coPackage" readonly value="10K One‑Step" /></div>
+            <div class="row"><label>Amount (USD)</label><input type="text" id="coAmount" readonly value="196" /></div>
+            <div class="row">
+              <label for="coin">Coin</label>
+              <select id="coin"><option>USDT</option><option>USDC</option><option>BTC</option><option>ETH</option></select>
+            </div>
+            <div class="row">
+              <label for="chain">Network / Chain</label>
+              <select id="chain"><option>TRC20</option><option>BEP20</option><option>ERC20</option><option>BTC</option></select>
+              <div class="hint">Choose a chain compatible with your wallet and selected coin.</div>
+            </div>
+            <div class="row">
+              <label>Destination address</label>
+              <div class="copy">
+                <input id="dest" readonly value="" placeholder="No address set yet" />
+                <button class="btn ghost" id="copyAddr" type="button">Copy</button>
+              </div>
+              <div class="hint" id="addrHint">No address set yet. You can still upload a receipt; admin will match it manually.</div>
+            </div>
+            <div class="row"><label for="txid">TX/Hash (optional)</label><input id="txid" placeholder="Paste transaction hash (optional)" /></div>
+          </div>
+          <div class="panel">
+            <form id="receiptForm">
+              <div class="row"><label for="rcpt">Upload receipt screenshot</label><input id="rcpt" type="file" accept="image/*" required /><div class="hint">PNG/JPG only. Max ~3–4MB recommended.</div></div>
+              <div class="row"><label for="note">Notes (optional)</label><textarea id="note" rows="3" placeholder="Extra details for admin"></textarea></div>
+              <div class="row right"><button class="btn primary" type="submit">Submit for Approval</button></div>
+            </form>
+            <p class="hint">You'll see the payment in your Dashboard as <b>Pending</b> until approved.</p>
+          </div>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <div class="social-container">
-    <a href="https://t.me/evaluxfunding">Telegram</a>
-    <a href="https://www.instagram.com/evaluxfunding">Instagram</a>
-    <a href="mailto:evaluxfunding@gmail.com">Email Us</a>
-  </div>
+    <section id="faq">
+      <div class="container">
+        <h2>FAQ</h2>
+        <details class="panel" style="margin-bottom:10px"><summary><b>Are cards supported?</b></summary><div class="sub">For now we only accept crypto. More methods can be added later.</div></details>
+        <details class="panel" style="margin-bottom:10px"><summary><b>How long to approve?</b></summary><div class="sub">Usually within 24–72 business hours after screenshot is reviewed.</div></details>
+        <details class="panel" style="margin-bottom:10px"><summary><b>Can I change coin/network?</b></summary><div class="sub">Yes, choose your preferred coin and chain on the checkout form.</div></details>
+      </div>
+    </section>
+  </main>
 
-  <footer style="padding:20px;text-align:center;color:#aaa;">© 2025 Evalux Funding</footer>
-
-  <script src="script.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
