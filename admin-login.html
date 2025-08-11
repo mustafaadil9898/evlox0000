@@ -4,21 +4,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Login • Evalux</title>
+  <title>Admin Login • Evalux</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link href="style.css" rel="stylesheet">
 </head>
-<body data-page="login">
+<body data-page="admin-login">
   <div class="center-wrap">
     <div class="form-card">
-      <h2>Login</h2>
-      <form id="loginForm">
-        <div class="row"><label>Email</label><input id="lemail" type="email" required></div>
-        <div class="row"><label>Password</label><input id="lpass" type="password" required></div>
+      <h2>Admin Login</h2>
+      <form id="adminForm">
+        <div class="row"><label>Username</label><input id="auser" value="" autocomplete="off" required></div>
+        <div class="row"><label>Password</label><input id="apass" value="" type="password" autocomplete="off" required></div>
         <div class="row"><button class="btn primary" type="submit" style="width:100%">Login</button></div>
-        <div class="row"><a href="register.html" class="btn ghost" style="width:100%;text-align:center">Create Account</a></div>
       </form>
     </div>
   </div>

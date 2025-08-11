@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin Panel • Evalux</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="style.css" rel="stylesheet">
+</head>
+<body data-page="admin-dashboard">
+  <main id="admin">
+    <section>
+      <div class="container">
+        <h2>Admin Panel</h2>
+        <p class="sub">Approve payments and create/update funded account details.</p>
+        <div class="panel" style="margin-bottom:12px">
+          <h3 style="margin:0 0 6px">Users</h3>
+          <table class="table" id="admUsers">
+            <thead><tr><th>Email</th><th>Name</th><th>Role</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <div class="adm-grid">
+          <div class="panel">
+            <h3 style="margin:0 0 6px">Pending Payments</h3>
+            <table class="table" id="admPending">
+              <thead><tr><th>Date</th><th>User</th><th>Package</th><th>Amount</th><th>Coin</th><th>Chain</th><th>Receipt</th><th>TX</th><th>Actions</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <div class="panel">
+            <h3 style="margin:0 0 6px">Approved / Rejected</h3>
+            <table class="table" id="admHistory">
+              <thead><tr><th>Date</th><th>User</th><th>Package</th><th>Amount</th><th>Status</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="panel" style="margin-top:12px">
+          <h3 style="margin:0 0 6px">Create / Update Account</h3>
+          <form id="acctForm">
+            <div class="row"><label>User Email</label><input id="acctEmail" type="email" required placeholder="user@example.com"></div>
+            <div class="row"><label>Platform</label>
+              <select id="acctPlatform"><option>MT4</option><option>MT5</option></select>
+            </div>
+            <div class="row"><label>Server</label><input id="acctServer" required placeholder="Broker-Server"></div>
+            <div class="row"><label>Login</label><input id="acctLogin" required placeholder="Account Login / Number"></div>
+            <div class="row"><label>Investor Password</label><input id="acctInvestor" required placeholder="Investor Readonly PW"></div>
+            <div class="row"><label>Status</label>
+              <select id="acctStatus"><option>active</option><option>suspended</option><option>closed</option></select>
+            </div>
+            <div class="row"><label>Note</label><input id="acctNote" placeholder="e.g. 10k one-step funded"></div>
+            <div class="row"><button type="submit" class="btn primary" style="width:100%">Save Account</button></div>
+          </form>
+        </div>
+
+        <div class="panel" style="margin-top:12px">
+          <h3 style="margin:0 0 6px">All Accounts</h3>
+          <table class="table" id="admAccounts">
+            <thead><tr><th>User</th><th>Platform</th><th>Server</th><th>Login</th><th>Status</th><th>Note</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
