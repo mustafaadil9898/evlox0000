@@ -1,84 +1,37 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>لوحة التحكم – Evalux Funding</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard • Evalux</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link href="style.css" rel="stylesheet">
 </head>
-<body>
-  <header class="header-card">
-    <div class="logo">E Evalux Funding</div>
-    <button class="btn-secondary" onclick="location.href='login.html'">تسجيل دخول</button>
-  </header>
-  <div class="dashboard-container">
-    <div class="dashboard-card">
-      <div style="display:flex;justify-content:space-between;align-items:center;">
-        <div>
-          <h2 id="account-id"></h2>
-          <div class="label">Created At: <span id="created-at"></span></div>
+<body data-page="dashboard">
+  <main>
+    <section>
+      <div class="container">
+        <h2>Dashboard</h2>
+        <p class="sub">Welcome, <b id="welcome"></b></p>
+        <div class="panel">
+          <h3 style="margin:0 0 6px">My Payments</h3>
+          <table class="table" id="myPayments">
+            <thead><tr><th>Date</th><th>Package</th><th>Amount</th><th>Coin</th><th>Chain</th><th>Status</th></tr></thead>
+            <tbody></tbody>
+          </table>
         </div>
-        <span class="status-badge" id="status"></span>
+        <div class="panel" style="margin-top:12px">
+          <h3 style="margin:0 0 6px">My Accounts</h3>
+          <table class="table" id="myAccounts">
+            <thead><tr><th>Platform</th><th>Server</th><th>Login</th><th>Investor PW</th><th>Status</th><th>Note</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
       </div>
-      <div class="btn-group">
-        <button onclick="location.href='credentials.html'">Credentials</button>
-        <button onclick="location.reload()">Dashboard</button>
-      </div>
-    </div>
-
-    <div class="balance-card">
-      <div class="balance-row">
-        <div class="balance-info">Account Balance</div>
-        <div class="balance-value" id="equity"></div>
-      </div>
-      <div class="balance-row">
-        <div class="label">Equity</div>
-        <div class="value" id="equity-detail"></div>
-      </div>
-      <div class="balance-row">
-        <div class="label">Profit</div>
-        <div class="value" id="profit"></div>
-      </div>
-    </div>
-
-    <div class="stats-grid">
-      <div class="stat-card">
-        <div class="label">Days Traded</div>
-        <div class="value" id="days-traded"></div>
-      </div>
-      <div class="stat-card">
-        <div class="label">Account Type</div>
-        <div class="value" id="acc-type"></div>
-      </div>
-      <div class="stat-card">
-        <div class="label">Platform</div>
-        <div class="value" id="platform"></div>
-      </div>
-      <div class="stat-card">
-        <div class="label">Phase</div>
-        <div class="value" id="phase"></div>
-      </div>
-      <div class="stat-card">
-        <div class="label">Account Size</div>
-        <div class="value" id="account-size"></div>
-      </div>
-    </div>
-  </div>
-  <script>
-    const email = sessionStorage.getItem('userEmail');
-    const clients = JSON.parse(localStorage.getItem('clients')||'[]');
-    const user = clients.find(c=>c.email===email) || {};
-    document.getElementById('account-id').textContent = user.id || email;
-    document.getElementById('created-at').textContent = user.createdAt || '';
-    document.getElementById('status').textContent = user.status || '';
-    document.getElementById('equity').textContent = user.equity || '';
-    document.getElementById('equity-detail').textContent = user.equity || '';
-    document.getElementById('profit').textContent = user.profit ? user.profit + '%' : '';
-    document.getElementById('days-traded').textContent = user.daysTraded || '';
-    document.getElementById('acc-type').textContent = user.type==='one'?'1 خطوة':'2 خطوة';
-    document.getElementById('platform').textContent = user.platform || '';
-    document.getElementById('phase').textContent = user.phase || '';
-    document.getElementById('account-size').textContent = user.size || '';
-  </script>
+    </section>
+  </main>
+  <script src="app.js"></script>
 </body>
 </html>
