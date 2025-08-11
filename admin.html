@@ -1,137 +1,25 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>لوحة الأدمن – Evalux Funding</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin Login • Evalux</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link href="style.css" rel="stylesheet">
-  <style>
-    .login-form, .admin-container {
-      max-width: 600px;
-      margin: 6rem auto;
-      padding: 2rem;
-      background: #111;
-      border-radius: 12px;
-      color: #fff;
-    }
-    .login-form h2, .admin-container h2 {
-      text-align: center;
-      margin-bottom: 1.5rem;
-    }
-    .login-form input, .login-form button,
-    .admin-container input, .admin-container select,
-    .admin-container button {
-      width: 100%;
-      margin-bottom: 1rem;
-      padding: 0.75rem;
-      border: none;
-      border-radius: 6px;
-      font-size: 0.95rem;
-    }
-    .login-form input { background: #222; color: #fff; }
-    .login-form .btn-login { background: #e33; color: #fff; cursor: pointer; }
-    .login-form .btn-login:hover { background: #c22; }
-    .admin-container input, .admin-container select { background: #222; color: #fff; }
-    .admin-container .btn-save { background: #e33; color: #fff; cursor: pointer; }
-    .admin-container .btn-save:hover { background: #c22; }
-    table {
-      width: 100%; border-collapse: collapse; margin-top: 1rem;
-    }
-    table th, table td {
-      border: 1px solid #333; padding: 0.5rem; text-align: center;
-    }
-    table th { background: #222; }
-  </style>
 </head>
-<body>
-  <!-- Admin Login Form -->
-  <div id="loginContainer" class="login-form">
-    <h2>تسجيل دخول الأدمن</h2>
-    <input type="password" id="adminKey" placeholder="Enter Admin Key">
-    <button id="adminLoginBtn" class="btn-login">دخول</button>
-    <div id="loginError" style="color:#e33; text-align:center;"></div>
+<body data-page="admin-login">
+  <div class="center-wrap">
+    <div class="form-card">
+      <h2>Admin Login</h2>
+      <form id="adminForm">
+        <div class="row"><label>Username</label><input id="auser" value="" autocomplete="off" required></div>
+        <div class="row"><label>Password</label><input id="apass" value="" type="password" autocomplete="off" required></div>
+        <div class="row"><button class="btn primary" type="submit" style="width:100%">Login</button></div>
+      </form>
+    </div>
   </div>
-
-  <!-- Admin Panel -->
-  <div id="adminContainer" class="admin-container" style="display:none;">
-    <h2>🛠️ إدارة بيانات العملاء</h2>
-    <label>بريد العميل</label>
-    <input type="email" id="clientEmail" placeholder="user@example.com">
-    <label>نوع الحساب</label>
-    <select id="clientType">
-      <option value="">-- اختر نوع الحساب --</option>
-      <option value="one">خطوة واحدة</option>
-      <option value="two">خطوتين</option>
-    </select>
-    <label>رأس المال</label>
-    <input type="number" id="clientSize" placeholder="مثال: 100 أو 150">
-    <label>التراجع اليومي %</label>
-    <input type="number" id="clientDailyDd" placeholder="مثال: 1.5">
-    <label>التراجع الكلي %</label>
-    <input type="number" id="clientMaxDd" placeholder="مثال: 5">
-    <button class="btn-save" onclick="saveClient()">حفظ البيانات</button>
-
-    <table id="clientsTable">
-      <thead>
-        <tr>
-          <th>البريد</th><th>النوع</th><th>رأس المال</th><th>تراجع يومي %</th><th>تراجع كلي %</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-  </div>
-
-  <script>
-    // فقط هذين المفتاحين مسموح لهما بالدخول
-    const allowedKeys = ['mustafa1998','younes2002'];
-
-    document.getElementById('adminLoginBtn').addEventListener('click', () => {
-      const key = document.getElementById('adminKey').value.trim();
-      const err = document.getElementById('loginError');
-      if (allowedKeys.includes(key)) {
-        document.getElementById('loginContainer').style.display = 'none';
-        document.getElementById('adminContainer').style.display = 'block';
-        loadClients();
-      } else {
-        err.textContent = 'Invalid Admin Key';
-      }
-    });
-
-    function loadClients() {
-      const clients = JSON.parse(localStorage.getItem('clients') || '[]');
-      const tbody = document.querySelector('#clientsTable tbody');
-      tbody.innerHTML = '';
-      clients.forEach(c => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td>${c.email}</td>
-          <td>${c.type === 'one' ? 'خطوة واحدة' : 'خطوتين'}</td>
-          <td>${c.size}</td>
-          <td>${c.dailyDd}%</td>
-          <td>${c.maxDd}%</td>
-        `;
-        tbody.appendChild(tr);
-      });
-    }
-
-    function saveClient() {
-      const email = document.getElementById('clientEmail').value.trim();
-      const type = document.getElementById('clientType').value;
-      const size = document.getElementById('clientSize').value.trim();
-      const dailyDd = document.getElementById('clientDailyDd').value.trim();
-      const maxDd = document.getElementById('clientMaxDd').value.trim();
-      if (!email || !type || !size || !dailyDd || !maxDd) {
-        alert('يرجى إكمال جميع الحقول');
-        return;
-      }
-      let clients = JSON.parse(localStorage.getItem('clients') || '[]');
-      const idx = clients.findIndex(c => c.email === email);
-      const rec = { email, type, size, dailyDd, maxDd };
-      if (idx > -1) clients[idx] = rec;
-      else clients.push(rec);
-      localStorage.setItem('clients', JSON.stringify(clients));
-      loadClients();
-    }
-  </script>
+  <script src="app.js"></script>
 </body>
 </html>
