@@ -1,44 +1,26 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>تسجيل دخول</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login • Evalux</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link href="style.css" rel="stylesheet">
-  <style>
-    .login-card { max-width:360px;margin:6rem auto;padding:2rem; }
-    .login-card .logo { text-align:center;margin-bottom:1.5rem; }
-    .login-card .logo .E { font-size:3rem;font-weight:bold;color:#e33; }
-    .login-card .logo .text { font-size:1.2rem;color:#fff;display:block; }
-    .login-card h1 { font-size:1.4rem;text-align:center;margin-bottom:1.5rem; }
-    .login-card input { width:100%;padding:0.75rem;margin-bottom:1rem;background:#222;border:none;border-radius:6px;color:#fff;font-size:0.95rem; }
-    .btn-primary, .btn-secondary { width:100%;padding:0.75rem;border:none;border-radius:6px;font-size:1rem;cursor:pointer; }
-    .btn-primary { background:#e33;color:#fff;margin-bottom:0.5rem; }
-    .btn-primary:hover { background:#c22; }
-    .btn-secondary { background:#222;color:#fff; }
-    .btn-secondary:hover { background:#333; }
-  </style>
 </head>
-<body>
-  <div class="card login-card">
-    <div class="logo">
-      <span class="E">E</span>
-      <span class="text">Evalux Funding</span>
+<body data-page="login">
+  <div class="center-wrap">
+    <div class="form-card">
+      <h2>Login</h2>
+      <form id="loginForm">
+        <div class="row"><label>Email</label><input id="lemail" type="email" required></div>
+        <div class="row"><label>Password</label><input id="lpass" type="password" required></div>
+        <div class="row"><button class="btn primary" type="submit" style="width:100%">Login</button></div>
+        <div class="row"><a href="register.html" class="btn ghost" style="width:100%;text-align:center">Create Account</a></div>
+      </form>
     </div>
-    <h1>Sign in to your account</h1>
-    <form id="loginForm">
-      <input type="email" id="email" name="email" placeholder="name@company.com" required>
-      <input type="password" id="password" name="password" placeholder="••••••••" required>
-      <button type="submit" class="btn-primary">Sign in</button>
-    </form>
-    <button onclick="location.href='register.html'" class="btn-secondary">Create Account</button>
   </div>
-  <script>
-    document.getElementById('loginForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      sessionStorage.setItem('userEmail', document.getElementById('email').value);
-      window.location.href = 'dashboard.html';
-    });
-  </script>
+  <script src="app.js"></script>
 </body>
 </html>
