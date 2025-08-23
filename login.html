@@ -7,7 +7,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/styles.css?v=1755984138">
+  <link rel="preload" as="style" href="assets/styles.css?v=1755984774">
+  <link rel="stylesheet" href="assets/styles.css?v=1755984774">
   <style>
     main{padding:40px 0}
     .auth{background:rgba(14,19,25,.65); border:1px solid var(--border); border-radius:16px; padding:20px; display:grid; gap:14px; max-width:520px; margin:0 auto}
@@ -17,6 +18,15 @@
   html,body{background:#0b0f14;color:#e5e7eb}
   body{min-height:100vh}
   </style>
+
+  <style>/* critical-dark */
+    :root{color-scheme:dark}
+    html,body{background:#0b0f14;color:#e5e7eb;min-height:100%;}
+    .site-header{background:rgba(3,6,10,.75);border-bottom:1px solid #1c232b}
+    .btn,.btn--ghost{color:#e5e7eb}
+    a{color:#e5e7eb}
+  </style>
+
 </head>
 <body>
   <header class="site-header">
