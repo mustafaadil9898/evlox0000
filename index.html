@@ -10,7 +10,234 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
   <link rel="icon" href="assets/favicon.svg" />
-  <link rel="stylesheet" href="assets/styles.css" />
+  <style>
+/* INLINE CSS */
+/* ===== Core theme ===== */
+:root{
+  --bg:#070809;
+  --text:#f3f3f3;
+  --muted:#b9c0c7;
+  --accent:#8b1e1e;      /* brand red */
+  --accent-2:#c93a3a;
+  --border:#1c232b;
+  --surface:#0e1319;
+  --radius:16px;
+  --shadow:0 10px 30px rgba(0,0,0,.45);
+  --ring:0 0 0 3px rgba(201,58,58,.35);
+}
+*{box-sizing:border-box}
+html,body{height:100%;scroll-behavior:smooth}
+body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial;background:#000;color:var(--text);line-height:1.65; padding-bottom: 84px;}
+
+.display{font-family:'Playfair Display',serif;font-weight:800;letter-spacing:.3px}
+.display-sm{font-family:'Playfair Display',serif;font-weight:700}
+
+/* Background */
+.bg-fixed{position:fixed;inset:0;z-index:0;pointer-events:none}
+.bg-mesh,.bg-grain{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.bg-grain{mix-blend-mode:screen;opacity:.28}
+main, header, nav, footer, section, .container{position:relative;z-index:1}
+
+/* Container */
+.container{width:min(1200px,92%);margin-inline:auto}
+
+/* Header */
+.site-header{position:sticky;top:0;z-index:60;background:linear-gradient(180deg,rgba(0,0,0,.86),rgba(0,0,0,.55));backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.header-inner{display:flex;align-items:center;gap:20px;padding:14px 0}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);font-weight:800}
+.brand-mark{display:grid;place-items:center;width:36px;height:36px;border-radius:10px;background:var(--accent);color:#fff}
+.main-nav{margin-left:auto;display:none;gap:20px}
+.main-nav a{color:var(--muted);text-decoration:none}
+.main-nav a:hover,.main-nav a.is-active{color:#fff}
+.burger{display:inline-flex;gap:6px;flex-direction:column;margin-left:auto;background:transparent;border:0;padding:8px}
+.burger span{width:22px;height:2px;background:#f3f3f3;border-radius:2px}
+.header-cta{display:none}
+@media (min-width:900px){.main-nav{display:flex}.header-cta{display:inline-flex}.burger{display:none}}
+
+/* Mobile nav */
+.mobile-nav{position:fixed;inset:60px 0 auto 0;background:rgba(0,0,0,.9);backdrop-filter:blur(8px);border-top:1px solid var(--border);display:none;z-index:70}
+.mobile-nav.open{display:block}
+.mobile-nav a{display:block;padding:16px 20px;border-bottom:1px solid var(--border);color:#f3f3f3;text-decoration:none}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 18px;border-radius:999px;border:1px solid transparent;font-weight:700;text-decoration:none;transition:all .25s}
+.btn--primary{background:var(--accent);color:#fff}
+.btn--primary:hover{background:var(--accent-2);box-shadow:0 0 28px 6px rgba(201,58,58,.2)}
+.btn--ghost{background:transparent;border-color:var(--border);color:#f3f3f3}
+.btn--ghost:hover{border-color:#f3f3f3}
+.sheen{position:relative;overflow:hidden}
+.sheen::after{content:"";position:absolute;inset:0;transform:translateX(-120%);background:linear-gradient(110deg,transparent,rgba(255,255,255,.22),transparent);transition:transform .8s}
+.sheen:hover::after{transform:translateX(120%)}
+:focus-visible{outline:none;box-shadow:var(--ring)}
+
+/* Sections */
+.section-pad{padding:clamp(70px,12vh,140px) 0;position:relative}
+.section-head h2{margin:0 0 6px;font-size:clamp(28px,4.2vw,44px)}
+.section-head p{margin:0;color:var(--muted)}
+
+/* Hero */
+.hero .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(24px,4vw,80px)}
+.hero .lead{color:var(--muted);font-size:clamp(16px,2.2vw,20px)}
+.hero-ctas{display:flex;gap:12px;margin:18px 0 12px}
+.hero-points{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0 0;padding:0;list-style:none;color:var(--muted)}
+.hero-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+.hero-kpis .num{font-size:36px;font-weight:800}
+.hero-kpis .label{color:var(--muted);font-size:14px}
+.hero-art{position:relative;min-height:520px}
+.luxe-frame{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:22px;filter:drop-shadow(0 10px 30px rgba(0,0,0,.6))}
+.glass{background:linear-gradient(180deg,rgba(14,19,25,.8),rgba(6,9,13,.82));border:1px solid var(--border);border-radius:18px}
+.ticker-card{position:absolute;right:24px;bottom:24px;padding:16px 16px 12px;width:min(300px,38vw)}
+.ticker-card .meta{color:var(--muted);display:flex;align-items:center;gap:8px}
+.ticker-card .meta .dot{width:8px;height:8px;border-radius:50%;background:#3bd16f;box-shadow:0 0 10px #3bd16f}
+.ticker-card .big{font-weight:800;font-size:28px;margin-top:6px}
+.ticker-card .tiny{color:var(--muted);font-size:12px;margin-top:6px}
+.ticker-card .sparkline{margin-top:10px;height:40px;background:linear-gradient(90deg,rgba(201,58,58,.25),transparent 70%);border-radius:10px}
+
+/* Packages */
+.package-grid{margin-top:28px;display:grid;grid-template-columns:repeat(1,1fr);gap:16px}
+@media (min-width:680px){.package-grid{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1020px){.package-grid{grid-template-columns:repeat(3,1fr)}}
+.card{background:linear-gradient(180deg,var(--surface),#06090d);border:1px solid var(--border);border-radius:18px;padding:20px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:12px;transition:transform .18s}
+.card:hover{transform:translateY(-4px)}
+.card .badge{align-self:flex-start;font-size:12px;font-weight:800;letter-spacing:.3px;color:#fff;background:linear-gradient(90deg,var(--accent),var(--accent-2));padding:6px 10px;border-radius:999px}
+.card .meta{display:flex;align-items:baseline;gap:10px}
+.card .meta .price{font-size:32px;font-weight:800}
+.card .meta .size{color:#d7dbe0;font-weight:600}
+.card ul{margin:0;padding-left:18px;color:var(--muted)}
+.card .btn{margin-top:auto}
+
+/* Mode toggle */
+.mode-toggle{display:inline-flex;gap:8px;background:rgba(14,19,25,.6);border:1px solid var(--border);padding:6px;border-radius:999px;margin-top:14px}
+.mode-btn{background:transparent;color:var(--muted);border:0;padding:10px 14px;border-radius:999px;cursor:pointer;font-weight:700}
+.mode-btn.is-active{background:var(--accent);color:#fff}
+
+/* Rules */
+.rules-grid{display:grid;grid-template-columns:1fr;gap:24px}
+@media (min-width:960px){.rules-grid{grid-template-columns:1fr 1fr}}
+.rule-list{margin:12px 0 0;color:var(--muted);padding-left:18px}
+.compare{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:18px}
+.compare-table{width:100%;border-collapse:collapse}
+.compare-table th,.compare-table td{border-bottom:1px solid var(--border);padding:12px 10px;text-align:left}
+.compare-table th{color:#e6e6e6}
+
+/* Simulator */
+.calc-form{display:grid;gap:10px;max-width:640px}
+.calc-grid{display:grid;gap:10px}
+.calc-result{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px}
+.calc-meta{display:grid;gap:6px;color:var(--muted)}
+
+/* FAQ */
+.faq-section{padding:64px 20px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0));border-top:1px solid rgba(255,255,255,0.06)}
+.faq-title{font-size:clamp(24px,3vw,36px);margin:0 0 24px 0;letter-spacing:.2px}
+.faq-accordion .faq-item{border:1px solid rgba(255,255,255,0.08);border-radius:14px;margin-bottom:12px;background:rgba(0,0,0,0.25);backdrop-filter:blur(6px)}
+.faq-accordion button{all:unset;display:flex;justify-content:space-between;align-items:center;width:100%;padding:18px 20px;cursor:pointer}
+.faq-accordion .q{font-weight:600}
+.faq-accordion .chev{transition:transform .2s ease}
+.faq-accordion .a{max-height:0;overflow:hidden;transition:max-height .25s ease,padding .25s ease;padding:0 20px;color:#cbd5e1}
+.faq-accordion .a.open{padding:0 20px 18px 20px}
+.faq-accordion .faq-item.open .a{max-height:240px}
+.faq-accordion .faq-item.open .chev{transform:rotate(180deg)}
+
+/* Newsletter + footer */
+.newsletter{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:18px;display:grid;gap:10px}
+.newsletter input{border-radius:10px;border:1px solid var(--border);background:#06090d;color:#f3f3f3;padding:12px}
+.newsletter .btn{width:100%}
+@media (min-width:720px){.newsletter{grid-template-columns:1fr auto}.newsletter .btn{width:auto}}
+.site-footer{border-top:1px solid var(--border);padding:40px 0}
+.fine-print{border-top:1px solid var(--border);margin-top:24px;padding-top:14px;display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.footer-links a{color:var(--muted);text-decoration:none;margin-right:10px}
+.footer-links a:hover{color:#fff}
+
+/* Sticky buy bar + to top */
+.buybar{position:fixed;left:16px;right:16px;bottom:16px;z-index:80;display:none;background:rgba(0,0,0,.88);backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:16px;padding:10px 12px;box-shadow:var(--shadow)}
+.buybar.show{display:flex;align-items:center;gap:10px;justify-content:space-between}
+.buybar .toggle{display:flex;gap:6px;background:rgba(14,19,25,.6);border:1px solid var(--border);padding:6px;border-radius:999px}
+.buybar .toggle button{background:transparent;color:var(--muted);border:0;padding:8px 12px;border-radius:999px;font-weight:700;cursor:pointer}
+.buybar .toggle button.is-active{background:var(--accent);color:#fff}
+.buybar .cta{display:flex;gap:8px}
+@media (min-width:1024px){.buybar{left:50%;right:auto;transform:translateX(-50%);width:min(960px,92%)}}
+.to-top{position:fixed;right:18px;bottom:86px;z-index:75;display:none}
+.to-top.show{display:inline-flex}
+.to-top.btn{border-radius:999px;padding:12px 14px}
+
+/* Skip link */
+.skip-link{position:absolute;left:-999px;top:auto;width:1px;height:1px;overflow:hidden}
+.skip-link:focus{position:fixed;left:20px;top:20px;width:auto;height:auto;background:#111827;color:#fff;border-radius:10px;padding:10px 14px;z-index:10000;border:1px solid rgba(255,255,255,.2)}
+
+/* Neon aesthetics (subtle) */
+.neon-line{ height:1px; width:100%; background: radial-gradient(closest-side, rgba(239,68,68,.55), rgba(239,68,68,0)); filter: blur(0.5px); margin: 6px 0 10px; }
+.btn--primary{ box-shadow:0 10px 30px rgba(239,68,68,.25), 0 0 0 1px rgba(239,68,68,.18) inset }
+h1,h2{ text-shadow: 0 0 10px rgba(239,68,68,.10); }
+
+/* Topbar */
+.free-topbar{position:sticky;top:0;z-index:9000;background:rgba(13,19,33,.8);backdrop-filter:blur(8px);border-bottom:1px solid rgba(255,255,255,.08)}
+.tb-wrap{display:flex;gap:10px;align-items:center;justify-content:space-between;padding:8px 16px;font-size:14px}
+.btn-primary{background:#ef4444;color:#fff;padding:8px 12px;border-radius:10px;font-weight:700}
+.btn-ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.2);padding:8px 12px;border-radius:10px;font-weight:700}
+
+/* Responsiveness tweaks */
+@media (max-width:640px){
+  .container{width:94%}
+  .hero .hero-grid{grid-template-columns:1fr}
+  .newsletter .btn{width:100%}
+}
+
+.card:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(201,58,58,.35)}
+
+.social-links{display:flex;gap:14px;align-items:center;margin-top:20px}
+.social-links a{color:#f3f3f3;display:inline-flex;transition:opacity .2s}
+.social-links a:hover{opacity:.7}
+.social-links img{width:28px;height:28px;display:block}
+
+/* ===== Scaling Plan ===== */
+.scale-list{list-style:none;margin:18px 0 0;padding:0;display:grid;gap:12px}
+.scale-item{display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:14px;
+  background:linear-gradient(180deg,rgba(14,19,25,.72),rgba(6,9,13,.78));
+  border:1px solid var(--border, #1c232b); box-shadow: 0 6px 24px rgba(0,0,0,.35), inset 0 0 0 1px rgba(201,58,58,.05)}
+.scale-item .num{font-weight:800;opacity:.85}
+.scale-item .txt{color:var(--muted,#b9c0c7)}
+.scale-item strong{color:#fff}
+.scale-item em{color:#ef4444; font-style:normal}
+
+/* ===== Top Accounts ===== */
+.accounts-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:16px}
+.acc-card{background:linear-gradient(180deg,rgba(14,19,25,.72),rgba(6,9,13,.78));padding:14px;border-radius:14px;
+  border:1px solid var(--border,#1c232b);box-shadow:inset 0 0 0 1px rgba(201,58,58,.05)}
+.acc-card strong{color:#fff}
+.acc-card span{color:#ccc;display:block;margin-top:4px}
+.acc-card em{color:#ef4444;font-style:normal;font-size:14px}
+/* ===== Leaderboard ===== */
+.leader-line{display:flex;flex-wrap:wrap;gap:12px;margin-top:16px;font-weight:500}
+.leader-line span{background:rgba(20,25,32,.6);padding:6px 12px;border-radius:999px;font-size:14px}
+
+/* ===== Testimonials ===== */
+.testimonials-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:18px}
+.t-card{background:linear-gradient(180deg,rgba(14,19,25,.72),rgba(6,9,13,.78));padding:18px;border-radius:14px;
+  border:1px solid var(--border,#1c232b);box-shadow:inset 0 0 0 1px rgba(201,58,58,.05)}
+.t-card p{font-size:15px;line-height:1.5;margin:0 0 8px;color:#f3f3f3}
+.t-card span{font-size:14px;color:#aaa}
+
+/* ===== Subtle red cursor/touch follower ===== */
+@media (pointer:fine){
+  .cursor-follower, .cursor-glow{
+    position: fixed; left: 0; top: 0; width: 18px; height: 18px;
+    border-radius: 999px; pointer-events: none; z-index: 9999;
+    opacity: .65; transform: translate(-9999px, -9999px);
+    will-change: transform, opacity;
+  }
+  .cursor-follower{ background: #ef4444; box-shadow: 0 0 12px rgba(239,68,68,.45); }
+  .cursor-glow{
+    width: 60px; height: 60px; opacity: .25;
+    background: radial-gradient(circle, rgba(239,68,68,.35) 0%, rgba(239,68,68,0) 70%);
+    filter: blur(1px);
+  }
+  .cursor-hide{ opacity: 0 !important; }
+}
+@media (prefers-reduced-motion: reduce){
+  .cursor-follower, .cursor-glow{ display: none !important; }
+}
+
+</style>
   <style>/* anti-fouc */
   html,body{background:#0b0f14;color:#e5e7eb}
   body{min-height:100vh}
@@ -576,21 +803,417 @@ h1,h2{ text-shadow: 0 0 10px rgba(239,68,68,.10); }
 
   <button id="toTop" class="to-top btn btn--ghost" aria-label="Back to top">↑</button>
 
-  <script src="assets/app.js"></script>
+  <script>
+// INLINE app.js
+// ===== App JS (no external deps) =====
+(function(){
+  const $ = (sel, root=document) => root.querySelector(sel);
+  const $$ = (sel, root=document) => [...root.querySelectorAll(sel)];
+
+  // Mobile nav
+  const burger = $('.burger');
+  const mobileNav = $('#mobileNav');
+  if (burger && mobileNav){
+    burger.addEventListener('click', ()=>{
+      const open = mobileNav.classList.toggle('open');
+      burger.setAttribute('aria-expanded', String(open));
+    });
+    $$('#mobileNav a').forEach(a=>a.addEventListener('click', ()=>{
+      mobileNav.classList.remove('open');
+      burger.setAttribute('aria-expanded','false');
+    }));
+  }
+
+  // Year
+  const y = $('#year');
+  if (y) y.textContent = new Date().getFullYear();
+
+  // Packages
+  const packages = {
+    one: [
+      {size: 5000, price: 116, badge: "Starter"},
+      {size: 10000, price: 196, badge: "Popular"},
+      {size: 25000, price: 365},
+      {size: 50000, price: 578},
+      {size: 100000, price: 1090},
+      {size: 200000, price: 2040}
+    ],
+    two: [
+      {size: 5000, price: 96, badge: "Value"},
+      {size: 10000, price: 176},
+      {size: 25000, price: 315, badge: "Popular"},
+      {size: 50000, price: 508},
+      {size: 100000, price: 980},
+      {size: 200000, price: 1840}
+    ]
+  };
+
+  const grid = $('#packageGrid');
+  const buybar = $('#buybar');
+  const toTop = $('#toTop');
+
+  function fmtSize(n){
+    if (n>=1000) return (n/1000)+'K';
+    return String(n);
+  }
+
+  function render(mode='one'){
+    if (!grid) return;
+    grid.innerHTML = '';
+    (packages[mode]||[]).forEach((p,i)=>{
+      const card = document.createElement('article');
+      card.className = 'card';
+      card.innerHTML = `
+        ${p.badge ? `<span class="badge">${p.badge}</span>` : ''}
+        <div class="meta"><div class="price">$${p.price}</div><div class="size">${fmtSize(p.size)} Challenge</div></div>
+        <ul>
+          <li>${mode==='one' ? 'Target 10%' : 'Target 5% + 8%'}</li>
+          <li>Daily DD 5% • Max DD 10%</li>
+          <li>Payout up to 80%</li>
+        </ul>
+        <a class="btn btn--primary sheen" href="pay-crypto.html?step=${mode}&size=${p.size}">Buy ${fmtSize(p.size)}</a>
+      `;
+
+      const url = `pay-crypto.html?step=${mode}&size=${p.size}`;
+      card.setAttribute('role','button');
+      card.setAttribute('tabindex','0');
+      card.style.cursor = 'pointer';
+      card.addEventListener('click', ()=>{ location.href = url });
+      card.addEventListener('keypress', (e)=>{ if(e.key==='Enter'){ location.href = url } });
+      grid.appendChild(card);
+    });
+
+    // Update quick buy
+    const quick = $('#quickBuyBtn');
+    if (quick) quick.href = `pay-crypto.html?step=${mode}&size=10000`;
+  }
+
+  // Mode toggle
+  $$('.mode-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      $$('.mode-btn').forEach(b=>b.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      const mode = btn.dataset.mode;
+      render(mode);
+      // Sync buybar toggle
+      $$('#buybar .toggle button').forEach(b=>{
+        const pressed = (b.dataset.mode===mode);
+        b.classList.toggle('is-active', pressed);
+        b.setAttribute('aria-pressed', String(pressed));
+      });
+    });
+  });
+
+  $$('#buybar .toggle button').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      $$('#buybar .toggle button').forEach(b=>b.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      const mode = btn.dataset.mode;
+      render(mode);
+    });
+  });
+
+  // Initial render
+  render('one');
+
+  // Show buybar & back-to-top after some scroll
+  const onScroll = ()=>{
+    const sc = window.scrollY || document.documentElement.scrollTop;
+    if (buybar) buybar.classList.toggle('show', sc > 480);
+    if (toTop) toTop.classList.toggle('show', sc > 480);
+  };
+  window.addEventListener('scroll', onScroll);
+  onScroll();
+  if (toTop) toTop.addEventListener('click', ()=>window.scrollTo({top:0, behavior:'smooth'}));
+
+  // FAQ accordion
+  $$('.faq-item').forEach(it=>{
+    const btn = it.querySelector('button');
+    const ans = it.querySelector('.a');
+    btn.addEventListener('click', ()=>{
+      it.classList.toggle('open');
+      ans.classList.toggle('open');
+      const expanded = it.classList.contains('open');
+      btn.setAttribute('aria-expanded', String(expanded));
+    });
+  });
+
+  // Simulator
+  const size = $('#accountSize');
+  const sizeOut = $('#sizeOut');
+  const profit = $('#profitInput');
+  const res = $('.calc-result');
+
+  function updateSim(){
+    const sz = parseInt(size.value, 10);
+    const pf = parseFloat(profit.value || 0);
+    if (sizeOut) sizeOut.textContent = (sz/1000)+'K';
+    const share = Math.max(0, Math.round(pf * 0.8));
+    if (res) res.innerHTML = `You receive <strong>$${share}</strong> (80%)`;
+  }
+  if (size && profit){
+    size.addEventListener('input', updateSim);
+    profit.addEventListener('input', updateSim);
+    updateSim();
+  }
+})();
+/* CURSOR FOLLOWER */
+(function(){
+  try{
+    const root = document.body;
+    const dot = document.createElement('div');
+    const glow = document.createElement('div');
+    dot.className = 'cursor-follower';
+    glow.className = 'cursor-glow';
+    root.appendChild(glow);
+    root.appendChild(dot);
+
+    let tx = -9999, ty = -9999; // target (mouse)
+    let x = tx, y = ty;         // current (lerped)
+    let hideTimer = null;
+
+    const lerp = (a,b,t)=>a+(b-a)*t;
+    const move = ()=>{
+      x = lerp(x, tx, 0.18);
+      y = lerp(y, ty, 0.18);
+      dot.style.transform = `translate(${x-6}px, ${y-6}px)`;
+      glow.style.transform = `translate(${x-22}px, ${y-22}px)`;
+      requestAnimationFrame(move);
+    };
+    move();
+
+    const show = ()=>{ dot.classList.remove('cursor-hide'); glow.classList.remove('cursor-hide'); };
+    const scheduleHide = ()=>{
+      clearTimeout(hideTimer);
+      hideTimer = setTimeout(()=>{ dot.classList.add('cursor-hide'); glow.classList.add('cursor-hide'); }, 1200);
+    };
+
+    const onMove = (clientX, clientY)=>{
+      tx = clientX; ty = clientY; show(); scheduleHide();
+    };
+
+    window.addEventListener('mousemove', (e)=> onMove(e.clientX, e.clientY), {passive:true});
+    window.addEventListener('touchmove', (e)=>{
+      if (e.touches && e.touches[0]) onMove(e.touches[0].clientX, e.touches[0].clientY);
+    }, {passive:true});
+    window.addEventListener('scroll', scheduleHide, {passive:true});
+  }catch(err){ /* ignore */ }
+})();
+
+</script>
+
+  <script>
+/* INLINE-APP-JS */
+// ===== App JS (no external deps) =====
+(function(){
+  const $ = (sel, root=document) => root.querySelector(sel);
+  const $$ = (sel, root=document) => [...root.querySelectorAll(sel)];
+
+  // Mobile nav
+  const burger = $('.burger');
+  const mobileNav = $('#mobileNav');
+  if (burger && mobileNav){
+    burger.addEventListener('click', ()=>{
+      const open = mobileNav.classList.toggle('open');
+      burger.setAttribute('aria-expanded', String(open));
+    });
+    $$('#mobileNav a').forEach(a=>a.addEventListener('click', ()=>{
+      mobileNav.classList.remove('open');
+      burger.setAttribute('aria-expanded','false');
+    }));
+  }
+
+  // Year
+  const y = $('#year');
+  if (y) y.textContent = new Date().getFullYear();
+
+  // Packages
+  const packages = {
+    one: [
+      {size: 5000, price: 116, badge: "Starter"},
+      {size: 10000, price: 196, badge: "Popular"},
+      {size: 25000, price: 365},
+      {size: 50000, price: 578},
+      {size: 100000, price: 1090},
+      {size: 200000, price: 2040}
+    ],
+    two: [
+      {size: 5000, price: 96, badge: "Value"},
+      {size: 10000, price: 176},
+      {size: 25000, price: 315, badge: "Popular"},
+      {size: 50000, price: 508},
+      {size: 100000, price: 980},
+      {size: 200000, price: 1840}
+    ]
+  };
+
+  const grid = $('#packageGrid');
+  const buybar = $('#buybar');
+  const toTop = $('#toTop');
+
+  function fmtSize(n){
+    if (n>=1000) return (n/1000)+'K';
+    return String(n);
+  }
+
+  function render(mode='one'){
+    if (!grid) return;
+    grid.innerHTML = '';
+    (packages[mode]||[]).forEach((p,i)=>{
+      const card = document.createElement('article');
+      card.className = 'card';
+      card.innerHTML = `
+        ${p.badge ? `<span class="badge">${p.badge}</span>` : ''}
+        <div class="meta"><div class="price">$${p.price}</div><div class="size">${fmtSize(p.size)} Challenge</div></div>
+        <ul>
+          <li>${mode==='one' ? 'Target 10%' : 'Target 5% + 8%'}</li>
+          <li>Daily DD 5% • Max DD 10%</li>
+          <li>Payout up to 80%</li>
+        </ul>
+        <a class="btn btn--primary sheen" href="pay-crypto.html?step=${mode}&size=${p.size}">Buy ${fmtSize(p.size)}</a>
+      `;
+
+      const url = `pay-crypto.html?step=${mode}&size=${p.size}`;
+      card.setAttribute('role','button');
+      card.setAttribute('tabindex','0');
+      card.style.cursor = 'pointer';
+      card.addEventListener('click', ()=>{ location.href = url });
+      card.addEventListener('keypress', (e)=>{ if(e.key==='Enter'){ location.href = url } });
+      grid.appendChild(card);
+    });
+
+    // Update quick buy
+    const quick = $('#quickBuyBtn');
+    if (quick) quick.href = `pay-crypto.html?step=${mode}&size=10000`;
+  }
+
+  // Mode toggle
+  $$('.mode-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      $$('.mode-btn').forEach(b=>b.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      const mode = btn.dataset.mode;
+      render(mode);
+      // Sync buybar toggle
+      $$('#buybar .toggle button').forEach(b=>{
+        const pressed = (b.dataset.mode===mode);
+        b.classList.toggle('is-active', pressed);
+        b.setAttribute('aria-pressed', String(pressed));
+      });
+    });
+  });
+
+  $$('#buybar .toggle button').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      $$('#buybar .toggle button').forEach(b=>b.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      const mode = btn.dataset.mode;
+      render(mode);
+    });
+  });
+
+  // Initial render
+  render('one');
+
+  // Show buybar & back-to-top after some scroll
+  const onScroll = ()=>{
+    const sc = window.scrollY || document.documentElement.scrollTop;
+    if (buybar) buybar.classList.toggle('show', sc > 480);
+    if (toTop) toTop.classList.toggle('show', sc > 480);
+  };
+  window.addEventListener('scroll', onScroll);
+  onScroll();
+  if (toTop) toTop.addEventListener('click', ()=>window.scrollTo({top:0, behavior:'smooth'}));
+
+  // FAQ accordion
+  $$('.faq-item').forEach(it=>{
+    const btn = it.querySelector('button');
+    const ans = it.querySelector('.a');
+    btn.addEventListener('click', ()=>{
+      it.classList.toggle('open');
+      ans.classList.toggle('open');
+      const expanded = it.classList.contains('open');
+      btn.setAttribute('aria-expanded', String(expanded));
+    });
+  });
+
+  // Simulator
+  const size = $('#accountSize');
+  const sizeOut = $('#sizeOut');
+  const profit = $('#profitInput');
+  const res = $('.calc-result');
+
+  function updateSim(){
+    const sz = parseInt(size.value, 10);
+    const pf = parseFloat(profit.value || 0);
+    if (sizeOut) sizeOut.textContent = (sz/1000)+'K';
+    const share = Math.max(0, Math.round(pf * 0.8));
+    if (res) res.innerHTML = `You receive <strong>$${share}</strong> (80%)`;
+  }
+  if (size && profit){
+    size.addEventListener('input', updateSim);
+    profit.addEventListener('input', updateSim);
+    updateSim();
+  }
+})();
+/* CURSOR FOLLOWER */
+(function(){
+  try{
+    const root = document.body;
+    const dot = document.createElement('div');
+    const glow = document.createElement('div');
+    dot.className = 'cursor-follower';
+    glow.className = 'cursor-glow';
+    root.appendChild(glow);
+    root.appendChild(dot);
+
+    let tx = -9999, ty = -9999; // target (mouse)
+    let x = tx, y = ty;         // current (lerped)
+    let hideTimer = null;
+
+    const lerp = (a,b,t)=>a+(b-a)*t;
+    const move = ()=>{
+      x = lerp(x, tx, 0.18);
+      y = lerp(y, ty, 0.18);
+      dot.style.transform = `translate(${x-6}px, ${y-6}px)`;
+      glow.style.transform = `translate(${x-22}px, ${y-22}px)`;
+      requestAnimationFrame(move);
+    };
+    move();
+
+    const show = ()=>{ dot.classList.remove('cursor-hide'); glow.classList.remove('cursor-hide'); };
+    const scheduleHide = ()=>{
+      clearTimeout(hideTimer);
+      hideTimer = setTimeout(()=>{ dot.classList.add('cursor-hide'); glow.classList.add('cursor-hide'); }, 1200);
+    };
+
+    const onMove = (clientX, clientY)=>{
+      tx = clientX; ty = clientY; show(); scheduleHide();
+    };
+
+    window.addEventListener('mousemove', (e)=> onMove(e.clientX, e.clientY), {passive:true});
+    window.addEventListener('touchmove', (e)=>{
+      if (e.touches && e.touches[0]) onMove(e.touches[0].clientX, e.touches[0].clientY);
+    }, {passive:true});
+    window.addEventListener('scroll', scheduleHide, {passive:true});
+  }catch(err){ /* ignore */ }
+})();
+
+  </script>
 </body>
 
 <div class="social-links" style="display:flex;gap:20px;justify-content:center;margin:30px 0;">
   <a href="https://www.instagram.com/evaluxfunding?igsh=c21ieTk4azg5dTJs&utm_source=qr" target="_blank" aria-label="Instagram" style="color:#ccc;">
-    <img src="assets/icon-instagram.svg" alt="Instagram" style="width:28px;height:28px;filter:invert(90%);opacity:0.85"/>
+    <img src="icon-instagram.svg" alt="Instagram" style="width:28px;height:28px;filter:invert(90%);opacity:0.85"/>
   </a>
   <a href="https://x.com/evaluxfunding?s=21" target="_blank" aria-label="X" style="color:#ccc;">
-    <img src="assets/icon-x.svg" alt="X (Twitter)" style="width:28px;height:28px;filter:invert(90%);opacity:0.85"/>
+    <img src="icon-x.svg" alt="X (Twitter)" style="width:28px;height:28px;filter:invert(90%);opacity:0.85"/>
   </a>
   <a href="https://t.me/Evaluxfunding" target="_blank" aria-label="Telegram Channel" style="color:#ccc;">
-    <img src="assets/icon-telegram.svg" alt="Telegram" style="width:28px;height:28px;filter:invert(90%);opacity:0.85"/>
+    <img src="icon-telegram.svg" alt="Telegram" style="width:28px;height:28px;filter:invert(90%);opacity:0.85"/>
   </a>
   <a href="https://t.me/evaluxSupport" target="_blank" aria-label="Telegram Support" style="color:#ccc;">
-    <img src="assets/icon-telegram.svg" alt="Telegram Support" style="width:28px;height:28px;filter:invert(90%);opacity:0.85"/>
+    <img src="icon-telegram.svg" alt="Telegram Support" style="width:28px;height:28px;filter:invert(90%);opacity:0.85"/>
   </a>
 </div>
 
