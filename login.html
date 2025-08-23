@@ -1,27 +1,37 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Login • Evalux</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Login — Evalux</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link href="style.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+  <style>
+    main{padding:40px 0}
+    .auth{background:rgba(14,19,25,.65); border:1px solid var(--border); border-radius:16px; padding:20px; display:grid; gap:14px; max-width:520px; margin:0 auto}
+    .auth input{width:100%; padding:12px; border-radius:10px; border:1px solid var(--border); background:#06090d; color:#f3f3f3}
+  </style>
 </head>
-<body data-page="login">
-  <div class="center-wrap">
-    <div class="form-card">
-      <h2>Login</h2>
-      <form id="loginForm">
-        <div class="row"><label>Email</label><input id="lemail" type="email" required></div>
-        <div class="row"><label>Password</label><input id="lpass" type="password" required></div>
-        <div class="row"><button class="btn primary" type="submit" style="width:100%">Login</button></div>
-        <div class="row"><a href="register.html" class="btn ghost" style="width:100%;text-align:center">Create Account</a></div>
-      </form>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html"><span class="brand-mark">E</span><span class="brand-text">Evalux</span></a>
+      <a class="btn btn--ghost" href="index.html#packages">← Back</a>
     </div>
-  </div>
-  <script src="script.js"></script>
+  </header>
+
+  <main class="container">
+    <h1>Login</h1>
+    <section class="auth">
+      <label>Email</label>
+      <input type="email" placeholder="you@example.com" />
+      <label>Password</label>
+      <input type="password" placeholder="••••••••" />
+      <a class="btn btn--primary sheen" href="dashboard.html">Continue</a>
+      <p class="muted">No account? <a href="#" class="link-muted">Create one</a></p>
+    </section>
+  </main>
 </body>
 </html>

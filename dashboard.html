@@ -1,38 +1,73 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Dashboard • Evalux</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link href="style.css" rel="stylesheet">
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Dashboard — Evalux</title>
+  <meta name="robots" content="noindex, nofollow"/>
+  <link rel="stylesheet" href="assets/styles.css"/>
+  <style>
+    main{max-width:1200px;margin:0 auto;padding:20px}
+    .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    .card{background:linear-gradient(180deg,rgba(14,19,25,.72),rgba(6,9,13,.78));border:1px solid var(--border,#1c232b);border-radius:16px;padding:14px}
+    .kpi{display:flex;flex-direction:column;gap:6px}
+    .kpi h4{margin:0;color:#b8c0c7;font-weight:600}
+    .kpi .num{font-size:28px;font-weight:800;color:#f5f5f5}
+    .kpi .delta{font-size:12px;opacity:.85}
+    .row{display:grid;grid-template-columns:2fr 1fr;gap:14px;margin-top:14px}
+    canvas{width:100%;height:260px;background:rgba(6,9,13,.45);border:1px solid var(--border,#1c232b);border-radius:12px}
+    .footer-row{display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px}
+    .toolbar{display:flex;justify-content:space-between;align-items:center;margin:6px 0 14px}
+    .muted{color:#94a3b8}
+    .badge{padding:4px 8px;border-radius:9999px;background:#1f2937;font-size:12px}
+    .badge.stale{background:#7c2d12}
+    .badge.fresh{background:#065f46}
+    .btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--border,#1c232b);padding:8px 12px;border-radius:999px;text-decoration:none;color:#e5e7eb}
+    .btn:hover{background:#121820}
+  </style>
 </head>
-<body data-page="dashboard">
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html"><span class="brand-mark">E</span><span class="brand-text">Evalux</span></a>
+      <a class="btn btn--ghost" href="index.html">← Back</a>
+    </div>
+  </header>
   <main>
-    <section>
-      <div class="container">
-        <h2>Dashboard</h2>
-        <p class="sub">Welcome, <b id="welcome"></b></p>
-        <div class="panel">
-          <h3 style="margin:0 0 6px">My Payments</h3>
-          <table class="table" id="myPayments">
-            <thead><tr><th>Date</th><th>Package</th><th>Amount</th><th>Coin</th><th>Chain</th><th>Status</th></tr></thead>
-            <tbody></tbody>
-          </table>
+    <div class="toolbar">
+      <div>
+        <strong>Dashboard</strong>
+        <span class="badge" id="freshBadge">—</span>
+      </div>
+      <small class="muted">Last updated: <span id="updatedAt">—</span> • Next due: <span id="nextDue">—</span></small>
+    </div>
+
+    <section class="grid" id="kpis">
+      <!-- KPIs populated by JS -->
+    </section>
+
+    <section class="row">
+      <div class="card">
+        <h3 style="margin:0 0 8px">Daily profit (last 7 sessions)</h3>
+        <canvas id="mortgage"></canvas>
+      </div>
+      <div class="card">
+        <h3 style="margin:0 0 8px">Asset distribution</h3>
+        <canvas id="donut"></canvas>
+      </div>
+    </section>
+
+    <section class="footer-row">
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+          <h3 style="margin:0">Weekly payouts</h3>
+          <a class="btn" href="admin.html">Admin</a>
         </div>
-        <div class="panel" style="margin-top:12px">
-          <h3 style="margin:0 0 6px">My Accounts</h3>
-          <table class="table" id="myAccounts">
-            <thead><tr><th>Platform</th><th>Server</th><th>Login</th><th>Investor PW</th><th>Status</th><th>Note</th></tr></thead>
-            <tbody></tbody>
-          </table>
-        </div>
+        <canvas id="weekly"></canvas>
       </div>
     </section>
   </main>
-  <script src="script.js"></script>
+
+  <script src="assets/dashboard.js"></script>
 </body>
 </html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Payment submitted — Evalux</title>
+  <link rel="stylesheet" href="assets/styles.css"/>
+  <style>
+    main{max-width:800px;margin:0 auto;padding:40px 16px}
+    .wrap{background:rgba(14,19,25,.72);border:1px solid var(--border,#1c232b);border-radius:16px;padding:20px;display:grid;gap:12px}
+    .mono{font-family: ui-monospace, Menlo, Consolas, monospace; background:#06090d; padding:10px; border-radius:10px; border:1px solid var(--border)}
+    .muted{opacity:.9}
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html"><span class="brand-mark">E</span><span class="brand-text">Evalux</span></a>
+      <a class="btn btn--ghost" href="index.html">← Back</a>
+    </div>
+  </header>
+  <main>
+    <h1>Payment submitted</h1>
+    <div class="wrap">
+      <p class="muted">Thank you. Your order has been received and is now <strong>Pending</strong> review by admin.</p>
+      <div>Order ID: <span id="oid" class="mono"></span></div>
+      <div>Status: <strong>Pending</strong></div>
+      <p class="muted">You will be notified once the payment is approved. You can check back later or contact support via Telegram.</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <a class="btn btn--primary sheen" href="index.html">Home</a>
+        <a class="btn btn--ghost" href="admin.html">Admin (staff)</a>
+      </div>
+    </div>
+  </main>
+  <script>
+    const id = new URLSearchParams(location.search).get('order');
+    document.getElementById('oid').textContent = id || '-';
+  </script>
+</body>
+</html>

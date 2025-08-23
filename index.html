@@ -1,131 +1,356 @@
-
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Evalux Funding</title>
-  <meta name="description" content="Evalux Funding — One/Two‑Step challenges with crypto checkout, receipt upload, and admin approval." />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Evalux Funding — Luxe Edition</title>
+  <meta name="description" content="Pass One/Two-Step & keep up to 80%. Bi-weekly payouts in ≤5 business days." />
+  <meta name="theme-color" content="#000000" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link href="style.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="icon" href="assets/favicon.svg" />
+  <link rel="stylesheet" href="assets/styles.css" />
 </head>
-<body data-page="index">
-  <section class="hero">
-    <div class="container hgrid">
-      <div>
-        <h1>Start your funded challenge</h1>
-        <p>Pick a package, pay with crypto, upload a receipt. Everything is routed to the Admin Panel for approval.</p>
-        <div class="stats">
-          <div class="stat"><b>80%</b><div class="hint">Profit share</div></div>
-          <div class="stat"><b>≤72h</b><div class="hint">Payout processing</div></div>
-          <div class="stat"><b>24/7</b><div class="hint">Support</div></div>
-        </div>
-      </div>
-      <div class="panel">
-        <h3 style="margin:0 0 8px">Quick Buy</h3>
-        <div class="row">
-          <label for="qbMode">Mode</label>
-          <select id="qbMode"><option value="one">One‑Step</option><option value="two">Two‑Step</option></select>
-        </div>
-        <div class="row">
-          <label for="qbSize">Account Size</label>
-          <select id="qbSize">
-            <option value="5000">$5,000</option>
-            <option value="10000" selected>$10,000</option>
-            <option value="25000">$25,000</option>
-            <option value="50000">$50,000</option>
-            <option value="100000">$100,000</option>
-            <option value="200000">$200,000</option>
-          </select>
-        </div>
-        <div class="row">
-          <div><b>Total:</b> <span id="qbPrice">$196</span></div>
-        </div>
-        <div class="row right">
-          <a class="btn primary" id="qbCheckout" href="#checkout">Buy with Crypto</a>
-        </div>
-        <p class="hint">You'll confirm coin & chain, then upload your receipt screenshot.</p>
+<body id="top">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- Fixed luxe bg -->
+  <div class="bg-fixed" aria-hidden="true">
+    <img class="bg-mesh" alt="" src="assets/mesh.svg" />
+    <img class="bg-grain" alt="" src="assets/grain.svg" />
+  </div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="Evalux home">
+        <span class="brand-mark">E</span><span class="brand-text">Evalux</span>
+      </a>
+
+      <nav class="main-nav" aria-label="Main">
+        <a href="#packages">Packages</a>
+        <a href="#rules">Rules</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Support</a>
+      </nav>
+
+      <button class="burger" aria-label="Menu" aria-controls="mobileNav" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+      <a class="btn btn--primary header-cta sheen" href="#packages">Start 10K Challenge</a>
+    </div>
+  </header>
+
+  <nav id="mobileNav" class="mobile-nav" aria-label="Mobile">
+    <a href="#packages">Packages</a>
+    <a href="#rules">Rules</a>
+    <a href="#faq">FAQ</a>
+    <a href="#contact">Support</a>
+    <a href="login.html">Login</a>
+  </nav>
+
+  <!-- topbar offer -->
+  <section class="free-topbar" aria-label="Launch Offer">
+    <div class="container tb-wrap">
+      <div class="tb-copy"><strong>Launch Offer:</strong> Try a <u>free preview</u> — no card required.</div>
+      <div class="tb-ctas">
+        <a class="btn-ghost" href="login.html">Login</a>
+        <a class="btn-primary" href="#packages" id="btn-buy-now">Start Challenge</a>
       </div>
     </div>
   </section>
 
-  <main>
-    <section id="packages">
+    <!-- TESTIMONIALS -->
+    <section id="testimonials" class="section-pad">
       <div class="container">
-        <header>
-          <h2>Choose your package</h2>
-          <p class="sub">Transparent pricing. Once approved, account details appear in your Dashboard.</p>
-          <div class="mode" role="group" aria-label="Package type">
-            <button class="is-active" data-mode="one">One‑Step</button>
-            <button data-mode="two">Two‑Step</button>
-          </div>
+        <header class="section-head">
+          <h2 class="display-sm">What traders say</h2>
+          <div class="neon-line" aria-hidden="true"></div>
         </header>
-        <div class="grid" id="pkgGrid"></div>
-      </div>
-    </section>
-
-    <section id="rules">
-      <div class="container">
-        <h2>Core Rules</h2>
-        <ul class="sub">
-          <li>One‑Step: Target <b>10%</b> • Daily DD <b>5%</b> • Max DD <b>10%</b></li>
-          <li>Two‑Step: <b>5% + 8%</b> • Daily DD <b>5%</b> • Max DD <b>10%</b></li>
-          <li>No trading 2 min before/after high‑impact news.</li>
-        </ul>
-      </div>
-    </section>
-
-    <section id="checkout">
-      <div class="container">
-        <h2>Crypto Checkout</h2>
-        <p class="sub">Pay with crypto, then upload your receipt. Admin will approve quickly.</p>
-        <div class="checkout">
-          <div class="panel">
-            <div class="row"><label>Selected Package</label><input type="text" id="coPackage" readonly value="10K One‑Step" /></div>
-            <div class="row"><label>Amount (USD)</label><input type="text" id="coAmount" readonly value="196" /></div>
-            <div class="row">
-              <label for="coin">Coin</label>
-              <select id="coin"><option>USDT</option><option>USDC</option><option>BTC</option><option>ETH</option></select>
-            </div>
-            <div class="row">
-              <label for="chain">Network / Chain</label>
-              <select id="chain"><option>TRC20</option><option>BEP20</option><option>ERC20</option><option>BTC</option></select>
-              <div class="hint">Choose a chain compatible with your wallet and selected coin.</div>
-            </div>
-            <div class="row">
-              <label>Destination address</label>
-              <div class="copy">
-                <input id="dest" readonly value="" placeholder="No address set yet" />
-                <button class="btn ghost" id="copyAddr" type="button">Copy</button>
-              </div>
-              <div class="hint" id="addrHint">No address set yet. You can still upload a receipt; admin will match it manually.</div>
-            </div>
-            <div class="row"><label for="txid">TX/Hash (optional)</label><input id="txid" placeholder="Paste transaction hash (optional)" /></div>
+        <div class="testimonials-grid">
+          <div class="t-card">
+            <p>"Fast support and realistic rules. I passed in 11 days."</p>
+            <span>— Daniel C., Spain</span>
           </div>
-          <div class="panel">
-            <form id="receiptForm">
-              <div class="row"><label for="rcpt">Upload receipt screenshot</label><input id="rcpt" type="file" accept="image/*" required /><div class="hint">PNG/JPG only. Max ~3–4MB recommended.</div></div>
-              <div class="row"><label for="note">Notes (optional)</label><textarea id="note" rows="3" placeholder="Extra details for admin"></textarea></div>
-              <div class="row right"><button class="btn primary" type="submit">Submit for Approval</button></div>
-            </form>
-            <p class="hint">You'll see the payment in your Dashboard as <b>Pending</b> until approved.</p>
+          <div class="t-card">
+            <p>"Payout hit my account in 48h. Smooth."</p>
+            <span>— Omar A., KSA</span>
+          </div>
+          <div class="t-card">
+            <p>"Best pricing for 100K. Great risk dashboard."</p>
+            <span>— Mila R., Poland</span>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+
+    <!-- TOP PERFORMING ACCOUNTS -->
+    <section id="topaccounts" class="section-pad">
+      <div class="container">
+        <header class="section-head">
+          <h2 class="display-sm">Top Performing Accounts</h2>
+          <div class="neon-line" aria-hidden="true"></div>
+        </header>
+        <div class="accounts-grid">
+          <div class="acc-card"><strong>FalconFX</strong><br><span>7D PnL: +$5,420</span><br><em>Best asset: US30</em></div>
+          <div class="acc-card"><strong>Q8_Pips</strong><br><span>7D PnL: +$4,310</span><br><em>Best asset: XAUUSD</em></div>
+          <div class="acc-card"><strong>NordicWave</strong><br><span>7D PnL: +$3,480</span><br><em>Best asset: EURUSD</em></div>
+          <div class="acc-card"><strong>AtlasTrader</strong><br><span>7D PnL: +$2,960</span><br><em>Best asset: NAS100</em></div>
+          <div class="acc-card"><strong>SaharaEdge</strong><br><span>7D PnL: +$2,540</span><br><em>Best asset: DAX40</em></div>
+          <div class="acc-card"><strong>EmeraldPips</strong><br><span>7D PnL: +$2,230</span><br><em>Best asset: GBPUSD</em></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LEADERBOARD -->
+    <section id="leaderboard" class="section-pad">
+      <div class="container">
+        <header class="section-head">
+          <h2 class="display-sm">Leaderboard</h2>
+          <div class="neon-line" aria-hidden="true"></div>
+        </header>
+        <div class="leader-line">
+          <span>FalconFX — +420 pts • US30</span>
+          <span>Q8_Pips — +310 pts • XAUUSD</span>
+          <span>NordicWave — +280 pts • EURUSD</span>
+          <span>AtlasTrader — +180 pts • NAS100</span>
+          <span>SaharaEdge — +150 pts • DAX40</span>
+        </div>
+      </div>
+    </section>
+    
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero section-pad">
+      <div class="container hero-grid">
+        <div class="hero-copy reveal" data-anim="up">
+          <h1 class="display">Funding, reimagined for <span class="accent">elite</span> traders</h1>
+          <p class="lead">Pass One-Step or Two-Step and keep up to <strong>80%</strong> of profits. Bi-weekly payouts within <strong>≤5 business days</strong>.</p>
+          <div class="hero-ctas">
+            <a class="btn btn--primary sheen" href="#packages">Start 10K Challenge</a>
+            <a class="btn btn--ghost" href="#rules">View Rules</a>
+          </div>
+          <ul class="hero-points">
+            <li>Secure checkout</li>
+            <li>Fast payouts</li>
+            <li>24/7 support</li>
+          </ul>
+          <div class="hero-kpis">
+            <div><div class="num" data-count="80">80</div><div class="label">Profit share</div></div>
+            <div><div class="num" data-count="5">5</div><div class="label">≤ days to payout</div></div>
+            <div><div class="num" data-count="24">24/7</div><div class="label">support</div></div>
+          </div>
+        </div>
+        <div class="hero-art reveal" data-anim="left">
+          <img class="luxe-frame" alt="" src="assets/device.svg" />
+          <div class="ticker-card glass">
+            <div class="meta"><span class="dot"></span>Live tick</div>
+            <div class="big">$ 1 238.50</div>
+            <div class="tiny">Spread 0.4 • Latency 4ms</div>
+            <div class="sparkline"></div>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="faq">
+    <!-- PACKAGES -->
+    <section id="packages" class="section-pad">
       <div class="container">
-        <h2>FAQ</h2>
-        <details class="panel" style="margin-bottom:10px"><summary><b>Are cards supported?</b></summary><div class="sub">For now we only accept crypto. More methods can be added later.</div></details>
-        <details class="panel" style="margin-bottom:10px"><summary><b>How long to approve?</b></summary><div class="sub">Usually within 24–72 business hours after screenshot is reviewed.</div></details>
-        <details class="panel" style="margin-bottom:10px"><summary><b>Can I change coin/network?</b></summary><div class="sub">Yes, choose your preferred coin and chain on the checkout form.</div></details>
+        <header class="section-head">
+          <h2 class="display-sm">Choose your package</h2>
+          <div class="neon-line" aria-hidden="true"></div>
+          <p>Transparent pricing, clear rules, and instant access after purchase.</p>
+
+          <div class="mode-toggle" role="group" aria-label="Package type">
+            <button class="mode-btn is-active" data-mode="one" aria-pressed="true">One-Step</button>
+            <button class="mode-btn" data-mode="two" aria-pressed="false">Two-Step</button>
+          </div>
+        </header>
+
+        <div id="packageGrid" class="package-grid" aria-live="polite"></div>
+        <div class="center mt-lg">
+          <a class="link-muted" href="#compare">Need help deciding? Compare One-Step vs Two-Step</a>
+        </div>
+      </div>
+    
+    <!-- SCALING PLAN -->
+    <section id="scaling" class="section-pad">
+      <div class="container">
+        <header class="section-head">
+          <h2 class="display-sm">Scaling Plan</h2>
+          <div class="neon-line" aria-hidden="true"></div>
+          <p class="muted">* Example model. Adjust exact figures in your Rulebook.</p>
+        </header>
+
+        <ol class="scale-list">
+          <li class="scale-item">
+            <span class="num">1.</span>
+            <span class="txt">Phase 1: Hit <strong>+10%</strong> with max DD respected — <em>Scales to 1.25×</em></span>
+          </li>
+          <li class="scale-item">
+            <span class="num">2.</span>
+            <span class="txt">Phase 2: Another <strong>+10%</strong> — <em>Scale to 1.5×</em> and profit split <strong>+5%</strong></span>
+          </li>
+          <li class="scale-item">
+            <span class="num">3.</span>
+            <span class="txt">Phase 3: Maintain consistency (3 payouts) — <em>Unlock 90% split</em></span>
+          </li>
+          <li class="scale-item">
+            <span class="num">4.</span>
+            <span class="txt">Phase 4: Elite tier review — <em>Custom limits &amp; benefits</em></span>
+          </li>
+        </ol>
+      </div>
+    </section>
+    
+<!-- RULES & COMPARE -->
+    <section id="rules" class="section-pad">
+      <div class="container">
+        <div class="rules-grid">
+          <div>
+            <header class="section-head">
+              <h2 class="display-sm">Core rules</h2>
+              <div class="neon-line" aria-hidden="true"></div>
+            </header>
+            <ul class="rule-list">
+              <li>One-Step: Target <strong>10%</strong> • Daily DD <strong>5%</strong> • Max DD <strong>10%</strong></li>
+              <li>Two-Step: <strong>5% + 8%</strong> • Daily DD <strong>5%</strong> • Max DD <strong>10%</strong></li>
+              <li>News: No trading <strong>2 min</strong> before/after high-impact news</li>
+            </ul>
+          </div>
+          <div class="compare" id="compare">
+            <h3>One-Step vs Two-Step</h3>
+            <table class="compare-table" role="table">
+              <thead><tr><th>Rule</th><th>One-Step</th><th>Two-Step</th></tr></thead>
+              <tbody>
+                <tr><td>Profit Target</td><td>10%</td><td>5% + 8%</td></tr>
+                <tr><td>Daily Drawdown</td><td>5%</td><td>5%</td></tr>
+                <tr><td>Max Drawdown</td><td>10%</td><td>10%</td></tr>
+                <tr><td colspan="3">No trading 2 min before/after high-impact news</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SIMULATOR -->
+    <section class="section-pad">
+      <div class="container">
+        <header class="section-head">
+          <h2 class="display-sm">Account simulator</h2>
+          <div class="neon-line" aria-hidden="true"></div>
+          <p>Estimate payout and check DD limits.</p>
+        </header>
+
+        <form class="calc-form" onsubmit="return false">
+          <label for="accountSize">Account size</label>
+          <input id="accountSize" type="range" min="5000" max="200000" step="5000" value="10000" />
+          <div id="sizeOut" class="calc-out">10K</div>
+
+          <label for="profitInput">Your profit ($)</label>
+          <input id="profitInput" type="number" inputmode="decimal" min="0" value="1000" />
+
+          <div class="calc-grid">
+            <div class="calc-result" aria-live="polite">You receive <strong>$800</strong> (80%)</div>
+            <div class="calc-meta">
+              <div>Daily DD limit: 5%</div>
+              <div>Max DD limit: 10%</div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="faq-section">
+      <div class="container">
+        <h2 class="faq-title">Frequently Asked Questions</h2>
+        <div class="neon-line" aria-hidden="true"></div>
+
+        <div class="faq-accordion" role="list">
+          <div class="faq-item" role="listitem">
+            <button aria-expanded="false" aria-controls="q1"><span class="q">What exactly is Evalux?</span><svg class="chev" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 10l5 5 5-5z"/></svg></button>
+            <div id="q1" class="a">Evalux provides a trader evaluation service (prop challenge). We are not a broker and we don’t execute real market orders.</div>
+          </div>
+          <div class="faq-item" role="listitem">
+            <button aria-expanded="false" aria-controls="q2"><span class="q">How fast are payouts?</span><svg class="chev" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 10l5 5 5-5z"/></svg></button>
+            <div id="q2" class="a">Once the conditions are met and your account passes review, typical processing is within 24–72 business hours.</div>
+          </div>
+          <div class="faq-item" role="listitem">
+            <button aria-expanded="false" aria-controls="q3"><span class="q">Are EAs/algos allowed?</span><svg class="chev" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 10l5 5 5-5z"/></svg></button>
+            <div id="q3" class="a">Yes, as long as strategies are legal, non-abusive, and respect our risk and news-trading policies.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section-pad">
+      <div class="container">
+        <header class="section-head">
+          <h2 class="display-sm">Stay in the loop</h2>
+          <div class="neon-line" aria-hidden="true"></div>
+          <p>Get updates on new packages and promos.</p>
+        </header>
+
+        <form class="newsletter" onsubmit="event.preventDefault();alert('Thanks! We will be in touch.');">
+          <input type="email" placeholder="Email address" required />
+          <button type="submit" class="btn btn--primary sheen">Subscribe</button>
+        </form>
       </div>
     </section>
   </main>
 
-  <script src="script.js"></script>
+  <footer class="site-footer">
+    <div class="container fine-print">
+      <p class="muted">Trading involves risk. Past performance is not indicative of future results. © <span id="year"></span> Evalux Funding.</p>
+      <div class="footer-links">
+        <a href="terms.html">Terms</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="refunds.html">Refunds</a>
+        <a href="risk.html">Risk</a>
+        <a href="kyc-aml.html">KYC/AML</a>
+      </div>
+    </div>
+  
+      
+    
+  </footer>
+
+  <!-- Sticky buy bar -->
+  <div id="buybar" class="buybar" role="region" aria-label="Quick buy">
+    <div class="toggle">
+      <button data-mode="one" class="is-active" aria-pressed="true">One-Step</button>
+      <button data-mode="two" aria-pressed="false">Two-Step</button>
+    </div>
+    <div class="cta">
+      <a id="quickBuyBtn" class="btn btn--primary sheen" href="pay-crypto.html?step=one&size=10000">Start 10K Challenge</a>
+      <a class="btn btn--ghost" href="#packages">See Packages</a>
+    </div>
+  </div>
+
+  <button id="toTop" class="to-top btn btn--ghost" aria-label="Back to top">↑</button>
+
+  <script src="assets/app.js"></script>
 </body>
+
+<div class="social-links" style="display:flex;gap:20px;justify-content:center;margin:30px 0;">
+  <a href="https://www.instagram.com/evaluxfunding?igsh=c21ieTk4azg5dTJs&utm_source=qr" target="_blank" aria-label="Instagram" style="color:#ccc;">
+    <img src="assets/icon-instagram.svg" alt="Instagram" style="width:28px;height:28px;filter:invert(90%);opacity:0.85"/>
+  </a>
+  <a href="https://x.com/evaluxfunding?s=21" target="_blank" aria-label="X" style="color:#ccc;">
+    <img src="assets/icon-x.svg" alt="X (Twitter)" style="width:28px;height:28px;filter:invert(90%);opacity:0.85"/>
+  </a>
+  <a href="https://t.me/Evaluxfunding" target="_blank" aria-label="Telegram Channel" style="color:#ccc;">
+    <img src="assets/icon-telegram.svg" alt="Telegram" style="width:28px;height:28px;filter:invert(90%);opacity:0.85"/>
+  </a>
+  <a href="https://t.me/evaluxSupport" target="_blank" aria-label="Telegram Support" style="color:#ccc;">
+    <img src="assets/icon-telegram.svg" alt="Telegram Support" style="width:28px;height:28px;filter:invert(90%);opacity:0.85"/>
+  </a>
+</div>
+
 </html>

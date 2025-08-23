@@ -1,73 +1,296 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Admin Panel • Evalux</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link href="style.css" rel="stylesheet">
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Admin — Evalux</title>
+  <meta name="robots" content="noindex, nofollow"/>
+  <style>
+    :root{--bg:#0b0f14;--card:#0f141b;--b:#1f2937;--txt:#e5e7eb;--mut:#94a3b8;--acc:#8b1e1e;}
+    *{box-sizing:border-box} body{margin:0;background:#000;color:var(--txt);font-family:Inter,ui-sans-serif,system-ui;line-height:1.55}
+    header{position:sticky;top:0;padding:12px 16px;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);border-bottom:1px solid #1f2937}
+    main{padding:28px 16px;max-width:1100px;margin:0 auto}
+    .card{background:linear-gradient(180deg,var(--card),#0a0d12);border:1px solid var(--b);border-radius:14px;padding:18px}
+    h1{margin:0 0 10px} .mut{color:var(--mut)}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px} @media (max-width:880px){.grid{grid-template-columns:1fr}}
+    input,select,button,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid var(--b);background:#0a0d12;color:var(--txt)}
+    textarea{min-height:80px;resize:vertical}
+    button.btn{background:var(--acc);border-color:transparent;font-weight:800;cursor:pointer}
+    button.btn.ghost{background:transparent;border-color:var(--b)}
+    table{width:100%;border-collapse:collapse} th,td{border-bottom:1px solid var(--b);padding:10px;text-align:left;vertical-align:top}
+    .mono{font-family:ui-monospace,Menlo,Consolas,monospace}
+    .badge{padding:4px 8px;border-radius:999px;font-size:12px;background:#374151}
+    .badge.Pending{background:#7c3aed} .badge.Approved{background:#059669} .badge.Rejected{background:#dc2626}
+    .toolbar{display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin:8px 0}
+    .right{display:flex;gap:8px;align-items:center}
+  </style>
 </head>
-<body data-page="admin-dashboard">
-  <main id="admin">
-    <section>
-      <div class="container">
-        <h2>Admin Panel</h2>
-        <p class="sub">Approve payments and create/update funded account details.</p>
-        <div class="panel" style="margin-bottom:12px">
-          <h3 style="margin:0 0 6px">Users</h3>
-          <table class="table" id="admUsers">
-            <thead><tr><th>Email</th><th>Name</th><th>Role</th></tr></thead>
-            <tbody></tbody>
-          </table>
-        </div>
-        <div class="adm-grid">
-          <div class="panel">
-            <h3 style="margin:0 0 6px">Pending Payments</h3>
-            <table class="table" id="admPending">
-              <thead><tr><th>Date</th><th>User</th><th>Package</th><th>Amount</th><th>Coin</th><th>Chain</th><th>Receipt</th><th>TX</th><th>Actions</th></tr></thead>
-              <tbody></tbody>
-            </table>
-          </div>
-          <div class="panel">
-            <h3 style="margin:0 0 6px">Approved / Rejected</h3>
-            <table class="table" id="admHistory">
-              <thead><tr><th>Date</th><th>User</th><th>Package</th><th>Amount</th><th>Status</th></tr></thead>
-              <tbody></tbody>
-            </table>
-          </div>
-        </div>
+<body>
+  <header><strong>Admin</strong></header>
+  <main>
+    <section id="gate" class="card">
+      <h1>Secure login</h1>
+      <p class="mut">أدخل رمز الإدمن.</p>
+      <div class="grid">
+        <input id="pw" type="password" placeholder="Admin pass"/>
+        <button id="go" class="btn">Enter</button>
+      </div>
+      <p class="mut mono" style="font-size:12px;margin-top:10px">* Demo only (static). سنربطه بباكند لاحقًا.</p>
+    </section>
 
-        <div class="panel" style="margin-top:12px">
-          <h3 style="margin:0 0 6px">Create / Update Account</h3>
-          <form id="acctForm">
-            <div class="row"><label>User Email</label><input id="acctEmail" type="email" required placeholder="user@example.com"></div>
-            <div class="row"><label>Platform</label>
-              <select id="acctPlatform"><option>MT4</option><option>MT5</option></select>
-            </div>
-            <div class="row"><label>Server</label><input id="acctServer" required placeholder="Broker-Server"></div>
-            <div class="row"><label>Login</label><input id="acctLogin" required placeholder="Account Login / Number"></div>
-            <div class="row"><label>Investor Password</label><input id="acctInvestor" required placeholder="Investor Readonly PW"></div>
-            <div class="row"><label>Status</label>
-              <select id="acctStatus"><option>active</option><option>suspended</option><option>closed</option></select>
-            </div>
-            <div class="row"><label>Note</label><input id="acctNote" placeholder="e.g. 10k one-step funded"></div>
-            <div class="row"><button type="submit" class="btn primary" style="width:100%">Save Account</button></div>
-          </form>
-        </div>
-
-        <div class="panel" style="margin-top:12px">
-          <h3 style="margin:0 0 6px">All Accounts</h3>
-          <table class="table" id="admAccounts">
-            <thead><tr><th>User</th><th>Platform</th><th>Server</th><th>Login</th><th>Status</th><th>Note</th></tr></thead>
-            <tbody></tbody>
-          </table>
+    <section id="panel" class="card" style="display:none;margin-top:14px">
+      <div class="toolbar">
+        <h2 style="margin:0">Payments & Orders</h2>
+        <div class="right">
+          <button id="export" class="btn ghost">Export JSON</button>
+          <label class="btn ghost" style="display:inline-flex;align-items:center;gap:8px;cursor:pointer">
+            Import JSON <input id="import" type="file" accept="application/json" style="display:none"/>
+          </label>
+          <button id="logout" class="btn ghost">Logout</button>
         </div>
       </div>
+
+      <div class="grid" style="margin:10px 0 16px">
+        <div class="card" style="padding:12px">
+          <h3 style="margin:0 0 10px">Add manual order</h3>
+          <div class="grid">
+            <input id="m_id" class="mono" placeholder="Order ID (auto if blank)"/>
+            <select id="m_step">
+              <option value="one">One-Step</option>
+              <option value="two">Two-Step</option>
+            </select>
+            <input id="m_size" type="number" placeholder="Size (e.g. 10000)"/>
+            <input id="m_price" type="number" placeholder="Price (e.g. 196)" step="0.01"/>
+            <input id="m_name" placeholder="Name"/>
+            <input id="m_email" type="email" placeholder="Email"/>
+            <select id="m_network">
+              <option>TRC20</option><option>BEP20</option><option>ERC20</option><option>BTC</option>
+            </select>
+            <input id="m_tx" class="mono" placeholder="TX Hash / Ref"/>
+            <input id="m_amount" type="number" placeholder="Amount paid" step="0.01"/>
+            <select id="m_status">
+              <option>Pending</option><option>Approved</option><option>Rejected</option>
+            </select>
+          </div>
+          <button id="add_manual" class="btn" style="margin-top:10px">Add</button>
+        </div>
+        <div class="card" style="padding:12px">
+          <h3 style="margin:0 0 10px">Search / Filter</h3>
+          <div class="grid">
+            <input id="q" placeholder="Search by id, name, email, tx..."/>
+            <select id="f_status"><option value="">All</option><option>Pending</option><option>Approved</option><option>Rejected</option></select>
+          </div>
+        </div>
+      </div>
+
+      <div style="overflow:auto">
+        <table id="tbl">
+          <thead><tr>
+            <th>Order</th><th>User</th><th>Payment</th><th>Receipt</th><th>Status</th><th>Actions</th>
+          </tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    
+      <div class="card" id="dashEditor" style="margin-top:14px;padding:14px">
+        <h3 style="margin:0 0 8px">Dashboard data (updates every 12h)</h3>
+        <div class="grid">
+          <textarea id="dashJson" placeholder="Dashboard JSON"></textarea>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:8px">
+          <button id="dashSave" class="btn">Save</button>
+          <button id="dashLoad" class="btn ghost">Load current</button>
+          <button id="dashDefaults" class="btn ghost">Reset defaults</button>
+          <small class="mut" id="dashInfo" style="margin-left:auto"></small>
+        </div>
+      </div>
+    
     </section>
   </main>
-  <script src="script.js"></script>
+
+  <script>
+    // Simple pass (static)
+    const PASS = "EVA9090";
+    const keyAdmin = "evalux_admin_login";
+    const keyData = "evalux_submissions"; // used by pay-crypto demo
+    const altKey = "evalux_orders";       // manual entries will go here too
+
+    const gate = document.getElementById('gate');
+    const panel = document.getElementById('panel');
+    const pw = document.getElementById('pw');
+    const go = document.getElementById('go');
+    const tbl = document.getElementById('tbl').querySelector('tbody');
+    const logout = document.getElementById('logout');
+    const q = document.getElementById('q');
+    const f_status = document.getElementById('f_status');
+
+    function readAll(){
+      const a = JSON.parse(localStorage.getItem(keyData) || '[]');
+      const b = JSON.parse(localStorage.getItem(altKey) || '[]');
+      return [...a, ...b];
+    }
+    function writeAlt(arr){
+      localStorage.setItem(altKey, JSON.stringify(arr.filter(x=>x._manual)));
+    }
+
+    function render(){
+      const items = readAll();
+      const term = (q.value||'').toLowerCase();
+      const st = f_status.value;
+      const filtered = items.filter(r => {
+        const blob = [r.id,r.name,r.email,r.txHash,r.network].join(' ').toLowerCase();
+        const okTerm = !term || blob.includes(term);
+        const okSt = !st || (r.status||'Pending')===st;
+        return okTerm && okSt;
+      });
+
+      tbl.innerHTML = '';
+      filtered.forEach((r, idx)=>{
+        const tr = document.createElement('tr');
+        const receiptBtn = r.receiptDataUrl ? `<a class="btn ghost" href="${r.receiptDataUrl}" target="_blank">View</a>` : '-';
+        tr.innerHTML = `
+          <td class="mono">${r.id||'-'}<br>${r.step? (r.step==='one'?'One-Step':'Two-Step') : '-'} • ${r.size||'-'} • $${r.price||'-'}</td>
+          <td>${r.name||'-'}<br><span class="mono">${r.email||'-'}</span></td>
+          <td>${r.network||'-'}<br><span class="mono">${r.txHash||'-'}</span><br>$${r.amount||r.price||'-'}</td>
+          <td>${receiptBtn}</td>
+          <td><span class="badge ${(r.status||'Pending')}">${r.status||'Pending'}</span></td>
+          <td>
+            <div style="display:flex;gap:6px;flex-wrap:wrap">
+              <button class="btn" data-act="set" data-status="Approved" data-id="${r.id}">Approve</button>
+              <button class="btn ghost" data-act="set" data-status="Rejected" data-id="${r.id}">Reject</button>
+              <button class="btn ghost" data-act="del" data-id="${r.id}">Delete</button>
+            </div>
+          </td>
+        `;
+        tbl.appendChild(tr);
+      });
+    }
+
+    tbl.addEventListener('click', (e)=>{
+      const b = e.target.closest('button'); if(!b) return;
+      const act = b.dataset.act; const id = b.dataset.id;
+      const a = JSON.parse(localStorage.getItem(keyData) || '[]');
+      const bArr = JSON.parse(localStorage.getItem(altKey) || '[]');
+      let changed = false;
+
+      function update(arr){
+        const i = arr.findIndex(x=>x.id===id);
+        if(i>-1){ 
+          if(act==='del') {{ arr.splice(i,1); changed=true; }}
+          else if (b.dataset.status) {{ arr[i].status = b.dataset.status; changed=true; }}
+        }
+      }
+      update(a);
+      update(bArr);
+      if(changed){
+        localStorage.setItem(keyData, JSON.stringify(a));
+        localStorage.setItem(altKey, JSON.stringify(bArr));
+        render();
+      }
+    });
+
+    document.getElementById('add_manual').addEventListener('click', ()=>{
+      const get = id=>document.getElementById(id).value;
+      const rec = {
+        id: get('m_id') || ('EVX-' + Date.now().toString(36).toUpperCase()),
+        step: get('m_step'), size: parseInt(get('m_size')||'0',10)||null,
+        price: parseFloat(get('m_price')||'0')||null,
+        name: get('m_name'), email: get('m_email'),
+        network: get('m_network'), txHash: get('m_tx'),
+        amount: parseFloat(get('m_amount')||'0')||null,
+        status: get('m_status')||'Pending',
+        _manual: true,
+        createdAt: new Date().toISOString()
+      };
+      const arr = JSON.parse(localStorage.getItem(altKey) || '[]');
+      arr.unshift(rec); localStorage.setItem(altKey, JSON.stringify(arr));
+      alert('Added'); render();
+    });
+
+    q.addEventListener('input', render);
+    f_status.addEventListener('change', render);
+
+    // Export / Import
+    document.getElementById('export').addEventListener('click', ()=>{
+      const data = readAll();
+      const blob = new Blob([JSON.stringify(data,null,2)], {type:'application/json'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href=url; a.download='evalux-orders.json'; a.click();
+      URL.revokeObjectURL(url);
+    });
+    document.getElementById('import').addEventListener('change', (e)=>{
+      const file = e.target.files[0]; if(!file) return;
+      const reader = new FileReader();
+      reader.onload = ()=>{
+        try{
+          const arr = JSON.parse(reader.result||'[]');
+          const clean = arr.map(x=>Object.assign({ _manual:true }, x));
+          localStorage.setItem(altKey, JSON.stringify(clean));
+          render();
+          alert('Imported');
+        }catch(err){ alert('Invalid JSON'); }
+      };
+      reader.readAsText(file);
+    });
+
+    // Auth
+    go.addEventListener('click', ()=>{
+      if (pw.value === PASS){ localStorage.setItem(keyAdmin,'1'); gate.style.display='none'; panel.style.display='block'; render(); }
+      else alert('Wrong pass');
+    });
+    logout.addEventListener('click', ()=>{ localStorage.removeItem(keyAdmin); panel.style.display='none'; gate.style.display='block'; });
+
+    if (localStorage.getItem(keyAdmin)==='1'){ gate.style.display='none'; panel.style.display='block'; render(); }
+  </script>
+
+  <script>
+    (function(){
+      const KEY = 'evalux_dashboard';
+      const H12 = 12 * 60 * 60 * 1000;
+      const defaults = {
+        updatedAt: new Date().toISOString(),
+        metrics: [
+          {label:'Active funded accounts', value:128,  delta:'+6.4% ↑'},
+          {label:'Payouts last 7d (USD)', value:48250, delta:'+12.3% ↑'},
+          {label:'Avg. win rate',         value:58,    delta:'+2.1% ↑', unit:'%'},
+          {label:'Avg. profit factor',    value:1.72,  delta:'+0.08 ↑'}
+        ],
+        dailyProfit: [820, -240, 1340, 980, -120, 760, 2210],
+        weeklyPayouts: [6.2, 8.4, 10.1, 7.8, 9.6, 11.4, 12.8],
+        assets: [
+          {label:'XAUUSD', value:36.5},
+          {label:'US30',   value:28.0},
+          {label:'NAS100', value:18.5},
+          {label:'EURUSD', value:17.0}
+        ]
+      };
+      function read(){ try { return JSON.parse(localStorage.getItem(KEY)) || defaults; } catch { return defaults; } }
+      function write(obj){ localStorage.setItem(KEY, JSON.stringify(obj)); }
+
+      const elJ = document.getElementById('dashJson');
+      const elInfo = document.getElementById('dashInfo');
+      function load(){ elJ.value = JSON.stringify(read(), null, 2); info(); }
+      function info(){
+        const d = read();
+        const t = new Date(d.updatedAt).getTime();
+        const due = new Date(t + H12);
+        elInfo.textContent = 'Last: ' + new Date(t).toLocaleString() + ' • Next due: ' + due.toLocaleString();
+      }
+      document.getElementById('dashLoad').addEventListener('click', load);
+      document.getElementById('dashDefaults').addEventListener('click', ()=>{ write(defaults); load(); alert('Defaults loaded'); });
+      document.getElementById('dashSave').addEventListener('click', ()=>{
+        try{
+          const obj = JSON.parse(elJ.value||'{}');
+          obj.updatedAt = new Date().toISOString();
+          write(obj);
+          alert('Saved. Dashboard will reflect changes.');
+          info();
+        }catch(e){ alert('Invalid JSON'); }
+      });
+      load();
+    })();
+  </script>
 </body>
+</html>
+
 </html>

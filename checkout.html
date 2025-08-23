@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Checkout — Evalux</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+  <style>
+    main{padding:40px 0}
+    .checkout{background:rgba(14,19,25,.65); border:1px solid var(--border); border-radius:16px; padding:20px; display:grid; gap:14px; max-width:820px; margin:0 auto}
+    .row{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+    @media (max-width:720px){ .row{grid-template-columns:1fr} }
+    .mono{font-family: ui-monospace, Menlo, Consolas, monospace; background:#06090d; padding:10px; border-radius:10px; border:1px solid var(--border)}
+    .copy{cursor:pointer}
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html"><span class="brand-mark">E</span><span class="brand-text">Evalux</span></a>
+      <a class="btn btn--ghost" href="index.html#packages">← Back</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <h1>Checkout</h1>
+    <p class="muted">Complete your purchase. (Payments via card/crypto — connect your gateway later.)</p>
+
+    <section class="checkout">
+      <div class="row">
+        <div>
+          <h3>Order</h3>
+          <div id="orderLine"><strong>10K</strong> — One-Step • <strong>$196</strong></div>
+          <p class="muted">Profit share up to 80%. Daily DD 5% • Max DD 10%.</p>
+        </div>
+        <div>
+          <h3>Payment method</h3>
+          <label><input type="radio" name="pm" checked> Card (Checkout.com)</label><br>
+          <label><input type="radio" name="pm"> Crypto (USDT TRC20)</label>
+        </div>
+      </div>
+
+      <div>
+        <h3>Crypto address (demo)</h3>
+        <div class="mono copy" id="addr">TQ9u9HqQ1r5czbZ9kEkW4xS8uDemoAddr</div>
+        <button class="btn btn--primary sheen" id="copyBtn">Copy address</button>
+      </div>
+
+      <a class="btn btn--primary sheen" href="login.html">Continue</a>
+    </section>
+  </main>
+
+  <script>
+    const params = new URLSearchParams(location.search);
+    const step = params.get('step') || 'one';
+    const size = parseInt(params.get('size')||'10000',10);
+    const priceTable = {
+      one: {5000:116,10000:196,25000:365,50000:578,100000:1090,200000:2040},
+      two: {5000:96,10000:176,25000:315,50000:508,100000:980,200000:1840}
+    };
+    function fmt(n){ return n>=1000 ? (n/1000)+'K' : n; }
+    const price = priceTable[step] && priceTable[step][size] ? priceTable[step][size] : 196;
+    const line = document.getElementById('orderLine');
+    if (line) line.innerHTML = `<strong>${fmt(size)}</strong> — ${step==='one'?'One-Step':'Two-Step'} • <strong>$${price}</strong>`;
+
+    document.getElementById('copyBtn').addEventListener('click', ()=>{
+      const a = document.getElementById('addr').textContent.trim();
+      navigator.clipboard.writeText(a).then(()=>{ alert('Address copied'); });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Crypto Payment — Evalux</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+  <style>
+    main{padding:40px 0}
+    .wrap{background:rgba(14,19,25,.65); border:1px solid var(--border); border-radius:16px; padding:20px; display:grid; gap:16px; max-width:980px; margin:0 auto}
+    .grid{display:grid; grid-template-columns:1fr 1fr; gap:16px}
+    @media (max-width:840px){ .grid{grid-template-columns:1fr} }
+    .mono{font-family: ui-monospace, Menlo, Consolas, monospace; background:#06090d; padding:10px; border-radius:10px; border:1px solid var(--border)}
+    .qr{width:180px;height:180px;background:#fff;display:grid;place-items:center;border-radius:8px}
+    .file{display:block; padding:10px; border:1px dashed #3b3b3b; border-radius:10px; background:#06090d; color:#eaeaea}
+    label strong{display:block;margin-bottom:6px}
+    .muted small{opacity:.9}
+    .ok{color:#34d399}
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html"><span class="brand-mark">E</span><span class="brand-text">Evalux</span></a>
+      <a class="btn btn--ghost" href="index.html#packages">← Back</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <h1>Pay with Crypto</h1>
+    <p class="muted">Send the exact amount, then upload your receipt. Your order will be reviewed by admin within 24–72h.</p>
+
+    <section class="wrap">
+      <div class="grid">
+        <div>
+          <h3>Order</h3>
+          <div id="orderLine"><strong>10K</strong> — One-Step • <strong>$196</strong></div>
+          <div class="muted">Order ID: <span id="orderId"></span></div>
+          <div class="muted">Status: <strong class="ok">Awaiting payment</strong></div>
+
+          <h3 style="margin-top:14px">Wallet</h3>
+          <div class="mono" id="walletAddr">TPNG5wwM2C32gR5YfiUdjZzDkg7y4cMiZ1</div>
+          <div class="muted"><small>Network: <span id="networkOut">TRC20 (USDT)</span></small></div>
+          <div style="display:flex; align-items:center; gap:16px; margin-top:10px">
+            <div class="qr" id="qrBox"><img src="assets/usdt-trc20-qr.png" alt="USDT TRC20 QR" style="width:100%;height:100%;object-fit:cover;border-radius:8px"/></div>
+            <button class="btn btn--primary sheen" id="copyBtn">Copy address</button>
+          </div>
+        </div>
+
+        <div>
+          <h3>Upload receipt</h3><p class="muted">Payment method: <strong>USDT — TRC20 only</strong>. Send to the wallet below, then upload a clear screenshot and paste your TX hash or explorer link.</p>
+          <form id="payForm">
+            <label><strong>Your name</strong><input required id="custName" type="text" placeholder="Full name" class="mono"></label>
+            <label><strong>Email</strong><input required id="custEmail" type="email" placeholder="you@example.com" class="mono"></label>
+            <label><strong>Network</strong>
+              <div class="mono" style="opacity:.9">TRC20 (USDT only)</div>
+              <input type="hidden" id="network" value="TRC20">
+            </label>
+            <label><strong>TX Hash</strong><input id="txHash" type="text" required placeholder="TX Hash or Explorer Link" class="mono"></label>
+            <label><strong>Amount (USDT)</strong><input id="amount" type="number" step="0.01" min="0" placeholder="196.00" class="mono"></label>
+            <label><strong>Receipt (image / pdf)</strong>
+              <input id="receipt" type="file" accept="image/*,application/pdf" class="file" required>
+            </label>
+            <button class="btn btn--primary sheen" type="submit">Submit for review</button>
+          </form>
+          <p class="muted">After submission, your order appears in <a href="admin.html">Admin Review</a> as “Pending”.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Parse order params
+    const params = new URLSearchParams(location.search);
+    const step = params.get('step') || 'one';
+    const size = parseInt(params.get('size') || '10000', 10);
+    const priceTable = {
+      one: {5000:116,10000:196,25000:365,50000:578,100000:1090,200000:2040},
+      two: {5000:96,10000:176,25000:315,50000:508,100000:980,200000:1840}
+    };
+    function fmt(n){ return n>=1000 ? (n/1000)+'K' : n; }
+    const price = priceTable[step] && priceTable[step][size] ? priceTable[step][size] : 196;
+
+    // Order ID
+    const orderId = 'EVX-' + Date.now().toString(36).toUpperCase();
+    document.getElementById('orderId').textContent = orderId;
+    document.getElementById('orderLine').innerHTML = `<strong>${fmt(size)}</strong> — ${step==='one'?'One-Step':'Two-Step'} • <strong>$${price}</strong>`;
+
+    // Fixed network TRC20; simple QR placeholder stays.
+    });
+    drawQR();
+
+    // Copy address
+    document.getElementById('copyBtn').addEventListener('click', ()=>{
+      navigator.clipboard.writeText(wallet.textContent.trim()).then(()=> alert('Address copied'));
+    });
+
+    // Save submission to localStorage for Admin
+    const form = document.getElementById('payForm');
+    form.addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      const name = document.getElementById('custName').value.trim();
+      const email = document.getElementById('custEmail').value.trim();
+      const network = netSel.value;
+      const txHash = document.getElementById('txHash').value.trim();
+      const amount = parseFloat(document.getElementById('amount').value || price);
+      const file = document.getElementById('receipt').files[0];
+      if(!file){ alert('Please attach a receipt'); return; }
+
+      // Convert file to dataURL for demo storage
+      const fileData = await file.arrayBuffer();
+      const blob = new Blob([fileData], {type: file.type});
+      const dataUrl = await new Promise(r=>{
+        const reader = new FileReader();
+        reader.onload = ()=> r(reader.result);
+        reader.readAsDataURL(blob);
+      });
+
+      const rec = {
+        id: orderId,
+        step, size, price,
+        name, email, network, txHash, amount,
+        wallet: wallet.textContent.trim(),
+        receiptDataUrl: dataUrl,
+        status: 'Pending',
+        createdAt: new Date().toISOString()
+      };
+      const key = 'evalux_submissions';
+      const arr = JSON.parse(localStorage.getItem(key) || '[]');
+      arr.unshift(rec);
+      localStorage.setItem(key, JSON.stringify(arr));
+
+      alert('Submitted. Your payment will be reviewed by admin.');
+      location.href = `payment-confirmation.html?order=${orderId}`;
+    });
+  </script>
+</body>
+</html>
