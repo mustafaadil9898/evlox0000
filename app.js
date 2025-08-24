@@ -24,20 +24,20 @@
   // Packages
   const packages = {
     one: [
-      {size: 5000, price: 116, badge: "Starter"},
-      {size: 10000, price: 196, badge: "Popular"},
-      {size: 25000, price: 365},
-      {size: 50000, price: 578},
-      {size: 100000, price: 1090},
-      {size: 200000, price: 2040}
+      {size: 5000, price: 65, badge: "Starter"},
+      {size: 10000, price: 111, badge: "Popular"},
+      {size: 25000, price: 220},
+      {size: 50000, price: 314},
+      {size: 100000, price: 654},
+      {size: 200000, price: 1099}
     ],
     two: [
-      {size: 5000, price: 96, badge: "Value"},
-      {size: 10000, price: 176},
-      {size: 25000, price: 315, badge: "Popular"},
-      {size: 50000, price: 508},
-      {size: 100000, price: 980},
-      {size: 200000, price: 1840}
+      {size: 5000, price: 58, badge: "Value"},
+      {size: 10000, price: 98},
+      {size: 25000, price: 178, badge: "Popular"},
+      {size: 50000, price: 289},
+      {size: 100000, price: 545},
+      {size: 200000, price: 1020}
     ]
   };
 

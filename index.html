@@ -479,6 +479,24 @@ h1,h2{ text-shadow: 0 0 10px rgba(239,68,68,.10); }
 }
 
   </style>
+
+  <style>
+    /* Accordion (rules) */
+    .acc{display:grid;gap:10px}
+    .acc-hd{
+      width:100%; text-align:right; padding:14px 16px; border-radius:14px; font-weight:700; cursor:pointer;
+      background:linear-gradient(180deg,rgba(14,19,25,.72),rgba(6,9,13,.78));
+      border:1px solid var(--border,#1c232b); color:#e5e7eb;
+    }
+    .acc-hd::after{content:"▾"; float:left; opacity:.7; transition:transform .2s}
+    .acc-hd.active::after{transform:rotate(180deg)}
+    .acc-bd{
+      display:none; padding:14px 16px; border-radius:12px; line-height:1.7;
+      background:rgba(10,14,20,.6); border:1px dashed rgba(239,68,68,.25); color:#dbe2ea
+    }
+    .acc-bd.show{display:block}
+  </style>
+
 </head>
 <body id="top">
   <a class="skip-link" href="#main">Skip to content</a>
@@ -673,6 +691,55 @@ h1,h2{ text-shadow: 0 0 10px rgba(239,68,68,.10); }
         </ol>
       </div>
     </section>
+
+    <!-- RULES & CONDITIONS (Accordion) -->
+    <section id="rules" class="section-pad">
+      <div class="container">
+        <header class="section-head">
+          <h2 class="display-sm">Rules & Conditions</h2>
+          <div class="neon-line" aria-hidden="true"></div>
+          <p class="muted">Click any item to view details below.</p>
+        </header>
+        <div class="acc">
+          <button class="acc-hd">What is Evalux?</button>
+          <div class="acc-bd">
+            <p>Evalux provides a trader evaluation service (Prop Challenge). We are not a broker and do not execute real market orders.</p>
+          </div>
+
+          <button class="acc-hd">Payout Speed</button>
+          <div class="acc-bd">
+            <p>Once conditions are met and your account passes review, processing is typically within <strong>24–72 business hours</strong>.</p>
+          </div>
+
+          <button class="acc-hd">Use of EAs/Algorithms</button>
+          <div class="acc-bd">
+            <p>Allowed as long as the strategy is legal, non-abusive, and complies with risk/news trading policies.</p>
+          </div>
+
+          <button class="acc-hd">Trading During High-Impact News</button>
+          <div class="acc-bd">
+            <p>May vary by challenge type. Some products restrict opening new positions <strong>2–5 minutes</strong> around red news events.</p>
+          </div>
+
+          <button class="acc-hd">Daily and Overall Drawdown Rules</button>
+          <div class="acc-bd">
+            <p>Standard daily loss limit (e.g., <strong>5%</strong>) and max drawdown (e.g., <strong>10%</strong>) — exact figures depend on the package.</p>
+          </div>
+
+          <button class="acc-hd">Payment Methods</button>
+          <div class="acc-bd">
+            <p><strong>USDT — TRC20 only.</strong> After payment upload a screenshot and paste your <strong>TX Hash</strong> or explorer link for review.</p>
+          </div>
+
+          <button class="acc-hd">KYC Verification</button>
+          <div class="acc-bd">
+            <p>Required before any payout for compliance and security.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
     
 <!-- RULES & COMPARE -->
     <section id="rules" class="section-pad">
@@ -831,20 +898,20 @@ h1,h2{ text-shadow: 0 0 10px rgba(239,68,68,.10); }
   // Packages
   const packages = {
     one: [
-      {size: 5000, price: 116, badge: "Starter"},
-      {size: 10000, price: 196, badge: "Popular"},
-      {size: 25000, price: 365},
-      {size: 50000, price: 578},
-      {size: 100000, price: 1090},
-      {size: 200000, price: 2040}
+      {size: 5000, price: 65, badge: "Starter"},
+      {size: 10000, price: 65, badge: "Popular"},
+      {size: 25000, price: 65},
+      {size: 50000, price: 65},
+      {size: 100000, price: 65},
+      {size: 200000, price: 65}
     ],
     two: [
-      {size: 5000, price: 96, badge: "Value"},
-      {size: 10000, price: 176},
-      {size: 25000, price: 315, badge: "Popular"},
-      {size: 50000, price: 508},
-      {size: 100000, price: 980},
-      {size: 200000, price: 1840}
+      {size: 5000, price: 111, badge: "Value"},
+      {size: 10000, price: 220},
+      {size: 25000, price: 65, badge: "Popular"},
+      {size: 50000, price: 1099},
+      {size: 100000, price: 65},
+      {size: 200000, price: 65}
     ]
   };
 
@@ -1030,20 +1097,20 @@ h1,h2{ text-shadow: 0 0 10px rgba(239,68,68,.10); }
   // Packages
   const packages = {
     one: [
-      {size: 5000, price: 116, badge: "Starter"},
-      {size: 10000, price: 196, badge: "Popular"},
-      {size: 25000, price: 365},
-      {size: 50000, price: 578},
-      {size: 100000, price: 1090},
-      {size: 200000, price: 2040}
+      {size: 5000, price: 65, badge: "Starter"},
+      {size: 10000, price: 65, badge: "Popular"},
+      {size: 25000, price: 65},
+      {size: 50000, price: 65},
+      {size: 100000, price: 65},
+      {size: 200000, price: 65}
     ],
     two: [
-      {size: 5000, price: 96, badge: "Value"},
-      {size: 10000, price: 176},
-      {size: 25000, price: 315, badge: "Popular"},
-      {size: 50000, price: 508},
-      {size: 100000, price: 980},
-      {size: 200000, price: 1840}
+      {size: 5000, price: 111, badge: "Value"},
+      {size: 10000, price: 220},
+      {size: 25000, price: 65, badge: "Popular"},
+      {size: 50000, price: 1099},
+      {size: 100000, price: 65},
+      {size: 200000, price: 65}
     ]
   };
 
@@ -1200,6 +1267,26 @@ h1,h2{ text-shadow: 0 0 10px rgba(239,68,68,.10); }
 })();
 
   </script>
+
+  <script>
+    // ACC-TOGGLE — show/hide rules on click
+    (function(){
+      const heads = document.querySelectorAll('.acc-hd');
+      heads.forEach(h=>{
+        h.addEventListener('click', ()=>{
+          const open = h.classList.contains('active');
+          document.querySelectorAll('.acc-hd').forEach(x=>x.classList.remove('active'));
+          document.querySelectorAll('.acc-bd').forEach(x=>x.classList.remove('show'));
+          if(!open){
+            h.classList.add('active');
+            const bd = h.nextElementSibling;
+            if(bd && bd.classList.contains('acc-bd')) bd.classList.add('show');
+          }
+        });
+      });
+    })();
+  </script>
+
 </body>
 
 <div class="social-links" style="display:flex;gap:20px;justify-content:center;margin:30px 0;">

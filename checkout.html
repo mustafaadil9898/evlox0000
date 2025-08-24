@@ -501,7 +501,7 @@ h1,h2{ text-shadow: 0 0 10px rgba(239,68,68,.10); }
       <div class="row">
         <div>
           <h3>Order</h3>
-          <div id="orderLine"><strong>10K</strong> — One-Step • <strong>$196</strong></div>
+          <div id="orderLine"><strong>10K</strong> — One-Step • <strong>$111</strong></div>
           <p class="muted">Profit share up to 80%. Daily DD 5% • Max DD 10%.</p>
         </div>
         <div>
@@ -525,10 +525,7 @@ h1,h2{ text-shadow: 0 0 10px rgba(239,68,68,.10); }
     const params = new URLSearchParams(location.search);
     const step = params.get('step') || 'one';
     const size = parseInt(params.get('size')||'10000',10);
-    const priceTable = {
-      one: {5000:116,10000:196,25000:365,50000:578,100000:1090,200000:2040},
-      two: {5000:96,10000:176,25000:315,50000:508,100000:980,200000:1840}
-    };
+    const priceTable = { one: {5000:65, 10000:111, 25000:220, 50000:314, 100000:654, 200000:1099}, two: {5000:58, 10000:98, 25000:178, 50000:289, 100000:545, 200000:1020} };
     function fmt(n){ return n>=1000 ? (n/1000)+'K' : n; }
     const price = priceTable[step] && priceTable[step][size] ? priceTable[step][size] : 196;
     const line = document.getElementById('orderLine');
