@@ -863,7 +863,7 @@ h1,h2{ text-shadow: 0 0 10px rgba(239,68,68,.10); }
       <button data-mode="two" aria-pressed="false">Two-Step</button>
     </div>
     <div class="cta">
-      <a id="quickBuyBtn" class="btn btn--primary sheen" href="pay-crypto.html?step=one&size=10000">Start 10K Challenge</a>
+      <a id="quickBuyBtn" class="btn btn--primary sheen" href="pay-crypto.html?step=one&size=10000&price=111">Start 10K Challenge</a>
       <a class="btn btn--ghost" href="#packages">See Packages</a>
     </div>
   </div>
@@ -898,20 +898,20 @@ h1,h2{ text-shadow: 0 0 10px rgba(239,68,68,.10); }
   // Packages
   const packages = {
     one: [
-      {size: 5000, price: 65, badge: "Starter"},
-      {size: 10000, price: 65, badge: "Popular"},
-      {size: 25000, price: 65},
-      {size: 50000, price: 65},
-      {size: 100000, price: 65},
-      {size: 200000, price: 65}
+      {size: 5000,  price: 65,  badge: "Starter"},
+      {size: 10000, price: 111, badge: "Popular"},
+      {size: 25000, price: 220},
+      {size: 50000, price: 314},
+      {size: 100000, price: 654},
+      {size: 200000, price: 1099}
     ],
     two: [
-      {size: 5000, price: 111, badge: "Value"},
-      {size: 10000, price: 220},
-      {size: 25000, price: 65, badge: "Popular"},
-      {size: 50000, price: 1099},
-      {size: 100000, price: 65},
-      {size: 200000, price: 65}
+      {size: 5000,  price: 58,  badge: "Value"},
+      {size: 10000, price: 98},
+      {size: 25000, price: 178, badge: "Popular"},
+      {size: 50000, price: 289},
+      {size: 100000, price: 545},
+      {size: 200000, price: 1020}
     ]
   };
 
@@ -938,7 +938,7 @@ h1,h2{ text-shadow: 0 0 10px rgba(239,68,68,.10); }
           <li>Daily DD 5% • Max DD 10%</li>
           <li>Payout up to 80%</li>
         </ul>
-        <a class="btn btn--primary sheen" href="pay-crypto.html?step=${mode}&size=${p.size}">Buy ${fmtSize(p.size)}</a>
+        <a class="btn btn--primary sheen" href="pay-crypto.html?step=${mode}&size=${p.size}&price=${p.price}">Buy ${fmtSize(p.size)}</a>
       `;
 
       const url = `pay-crypto.html?step=${mode}&size=${p.size}`;
@@ -1097,20 +1097,20 @@ h1,h2{ text-shadow: 0 0 10px rgba(239,68,68,.10); }
   // Packages
   const packages = {
     one: [
-      {size: 5000, price: 65, badge: "Starter"},
-      {size: 10000, price: 65, badge: "Popular"},
-      {size: 25000, price: 65},
-      {size: 50000, price: 65},
-      {size: 100000, price: 65},
-      {size: 200000, price: 65}
+      {size: 5000,  price: 65,  badge: "Starter"},
+      {size: 10000, price: 111, badge: "Popular"},
+      {size: 25000, price: 220},
+      {size: 50000, price: 314},
+      {size: 100000, price: 654},
+      {size: 200000, price: 1099}
     ],
     two: [
-      {size: 5000, price: 111, badge: "Value"},
-      {size: 10000, price: 220},
-      {size: 25000, price: 65, badge: "Popular"},
-      {size: 50000, price: 1099},
-      {size: 100000, price: 65},
-      {size: 200000, price: 65}
+      {size: 5000,  price: 58,  badge: "Value"},
+      {size: 10000, price: 98},
+      {size: 25000, price: 178, badge: "Popular"},
+      {size: 50000, price: 289},
+      {size: 100000, price: 545},
+      {size: 200000, price: 1020}
     ]
   };
 
@@ -1137,7 +1137,7 @@ h1,h2{ text-shadow: 0 0 10px rgba(239,68,68,.10); }
           <li>Daily DD 5% • Max DD 10%</li>
           <li>Payout up to 80%</li>
         </ul>
-        <a class="btn btn--primary sheen" href="pay-crypto.html?step=${mode}&size=${p.size}">Buy ${fmtSize(p.size)}</a>
+        <a class="btn btn--primary sheen" href="pay-crypto.html?step=${mode}&size=${p.size}&price=${p.price}">Buy ${fmtSize(p.size)}</a>
       `;
 
       const url = `pay-crypto.html?step=${mode}&size=${p.size}`;
