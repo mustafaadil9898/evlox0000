@@ -1,0 +1,9 @@
+/* === FAQ modal styles (Evalux) === */
+.faq-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:1000;justify-content:center;align-items:center}
+.faq-modal-content{background:#0e1319;color:#f3f3f3;max-width:900px;max-height:90vh;overflow:auto;border-radius:16px;padding:22px 22px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
+.faq-close{float:right;font-size:24px;cursor:pointer;color:#bbb}
+.faq-close:hover{color:#fff}
+.prose h4{margin-top:16px;margin-bottom:8px}
+.prose h5{margin-top:12px;margin-bottom:6px;font-weight:700}
+.prose p,.prose li{color:#d9e0e7}
+.prose ul{padding-left:18px}
